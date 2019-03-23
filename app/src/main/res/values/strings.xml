@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">guider_haydi</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- login -->
+
+    <string name="name_app">HAYDI</string>
+    <string name="text_title">Đi theo cách riêng của bạn</string>
+    <string name="text_so_dien_thoai">Số điện thoại đăng nhập</string>
+    <string name="text_mat_khau">Mật khẩu</string>
+    <string name="text_checkbox">Ghi nhớ đăng nhập</string>
+    <string name="text_dang_ky">Đăng ký</string>
+    <string name="text_quen_mat_khau">Quên mật khẩu</string>
+    <string name="text_buttom_login">Đăng Nhập</string>
+    <string name="text_buttom_fb">Đăng nhập bằng facebook</string>
+    <string name="text_b_c_c_t_k">Bạn chưa có tài khoản</string>
+
+
+    <!-- register -->
+
+    <string name="txt_my_name">Tên của bạn</string>
+    <string name="txt_phone_login">Số điện thoại đăng nhập</string>
+    <string name="text_my_eamil">Email của bạn</string>
+    <string name="text_checkbox_register">Tôi đòng ý với chính sách của hay đi</string>
+    <string name="text_resgister_buttom">Đăng ký</string>
+    <string name="text_login_register">đăng nhập</string>
+    <string name="text_back_login">Quay về</string>
+    <string name="btn_register_login">Đăng ký</string>
+    <string name="txt_address">Địa chỉ đang sống</string>
+
+
+    <!-- profile -->
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="txt_sua">Sửa</string>
+    <string name="btn_them">Thêm</string>
+    <string name="btn_repassword">Đổi mật khẩu</string>
+    <string name="txt_save">lưu</string>
+    <string name="text_value">Điều bạn mang lại</string>
+    <string name="text_description">Vài điều về bạn</string>
+    <string name="text_languages">Bạn biết những ngôn ngữ nào</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <!-- detail new trip -->
+    <string name="text_thong_tin_khach_hang">THÔNG TIN KHÁC HÀNG</string>
+    <string name="btn_goi_dien">Gọi điện</string>
+    <string name="txt_thong_tin_chuyen_di">THÔNG TIN CHUYEN ĐI</string>
+    <string name="text_bat_dau">Bắt đầu</string>
+    <string name="txt_thoi_gian_hen">Thời gian hẹn :</string>
+    <string name="txt_view_dia_diem_hen">Địa điểm hẹn :</string>
+    <string name="edt_yeu_cau_nhan_dang">Yêu cầu nhận dạng</string>
+    <string name="btn_xac_nhan">Xác nhận</string>
+    <string name="txt_view_diem_mong_muon_tham_quan">Điểm Mong Muốn tham quan</string>
+    <string name="btn_tin_nhan">Nhắn tin</string>
+    <string name="btn_tuc_hoi">Từ chối</string>
+</resources>

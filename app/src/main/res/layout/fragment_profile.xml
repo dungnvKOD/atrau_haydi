@@ -1,0 +1,756 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                     xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                     xmlns:tools="http://schemas.android.com/tools"
+                                                     android:layout_width="match_parent"
+                                                     android:layout_height="match_parent"
+                                                     android:background="@color/white"
+                                                     android:fitsSystemWindows="false">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentScrim="@color/blule"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <ImageView
+                    android:id="@+id/img_cover"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:scaleType="center"
+                    android:src="@drawable/mau"
+                    app:layout_collapseMode="parallax"/>
+
+            <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                <TextView
+                        android:id="@+id/txt_tool_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/padding_24dp"
+                        android:layout_marginEnd="@dimen/size_14_dp"
+                        android:gravity="center"
+                        android:text="HỒ SƠ"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold"/>
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="8dp"
+                        android:paddingBottom="@dimen/size_22_dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/imgAvatarP"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_marginStart="@dimen/padding_16dp"
+                            android:src="@drawable/ic_account_circle_black_24dp"
+                            app:civ_border_width="2dp"/>
+
+                    <ImageView
+                            android:id="@+id/btn_add_avatarP"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignEnd="@id/imgAvatarP"
+                            android:layout_alignBottom="@id/imgAvatarP"
+                            android:src="@drawable/ic_add_a_photo_black_24dp"/>
+
+                    <TextView
+
+                            android:id="@+id/txt_nameP"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/padding_16dp"
+                            android:layout_toEndOf="@id/imgAvatarP"
+                            android:textColor="@color/black"
+                            android:textSize="22sp"
+                            android:textStyle="bold"/>
+
+                    <TextView
+                            android:id="@+id/txt_cityP"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/txt_nameP"
+                            android:layout_marginStart="@dimen/padding_16dp"
+                            android:layout_toEndOf="@id/imgAvatarP"
+                            android:textSize="14sp"/>
+
+                    <LinearLayout
+                            android:id="@+id/layout_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/txt_cityP"
+                            android:layout_centerInParent="true"
+                            android:layout_toEndOf="@id/imgAvatarP"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                        <TextView
+                                android:id="@+id/txt_priceP"
+                                style="@style/TextAppearance.AppCompat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/padding_16dp"
+                                android:text="Giá "
+                                android:textSize="14sp"
+                                android:textStyle="bold"/>
+
+                        <RelativeLayout
+                                android:id="@+id/view_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                            <net.bohush.geometricprogressview.GeometricProgressView
+                                    android:id="@+id/pb_price"
+                                    android:layout_width="@dimen/padding_24dp"
+                                    android:layout_height="@dimen/padding_24dp"
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginStart="@dimen/padding_24dp"
+                                    android:visibility="invisible"
+                                    app:gp_color="@android:color/darker_gray"
+                                    app:gp_duration="800"
+                                    app:gp_figure_padding="3dp"
+                                    app:gp_number_of_angles="7"
+                                    app:gp_type="triangle"/>
+
+                            <TextView
+                                    android:id="@+id/txt_write_priceP"
+                                    style="@style/TextAppearance.AppCompat"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginStart="@dimen/size_4_dp"
+                                    android:textColor="@color/red"
+                                    android:textSize="22sp"
+                                    android:textStyle="bold"/>
+
+                            <EditText
+
+                                    android:id="@+id/edt_write_priceP"
+                                    style="@style/TextAppearance.AppCompat"
+                                    android:layout_width="100dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/size_4_dp"
+                                    android:background="@drawable/shape_input_text"
+                                    android:gravity="center"
+                                    android:hint="giá"
+                                    android:inputType="number"
+                                    android:maxLength="9"
+                                    android:padding="@dimen/size_4_dp"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"
+                                    android:visibility="invisible"/>
+
+                        </RelativeLayout>
+
+                        <EditText
+                                android:id="@+id/edt_write_price_unitP"
+                                style="@style/TextAppearance.AppCompat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/size_4_dp"
+                                android:background="@drawable/shape_input_text"
+                                android:gravity="center"
+                                android:hint="Đơn vị giá"
+                                android:maxLength="4"
+                                android:padding="@dimen/size_4_dp"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:visibility="gone"/>
+
+                        <TextView
+
+                                android:id="@+id/btn_setting_priceP"
+                                style="@style/TextAppearance.AppCompat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/size_4_dp"
+                                android:layout_marginEnd="@dimen/padding_16dp"
+                                android:drawableStart="@drawable/ic_mode_edit_black_24dp"
+                                android:text=""/>
+
+                    </LinearLayout>
+
+
+                    <RelativeLayout
+                            android:id="@+id/layout_btn_emailP"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/layout_price"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="32dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginRight="32dp">
+
+                        <TextView
+                                android:id="@+id/btn_complete_emailP"
+                                style="@style/TextAppearance.AppCompat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:drawableStart="@drawable/ic_mode_edit_black_24dp"
+                                android:text="@string/txt_save"
+                                android:textColor="@color/red"
+                                android:visibility="gone"/>
+
+                        <EditText
+
+                                android:id="@+id/edt_setting_emailP"
+                                style="@style/TextAppearance.AppCompat"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/btn_complete_emailP"
+                                android:background="@drawable/shape_input_text"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:gravity="center"
+                                android:hint="email"
+                                android:maxLength="25"
+                                android:paddingTop="12dp"
+                                android:paddingBottom="12dp"
+                                android:visibility="invisible"/>
+
+                        <TextView
+                                android:id="@+id/view_setting_emailP"
+                                style="@style/TextAppearance.AppCompat"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/shape_buttom_blue_2"
+                                android:clickable="false"
+                                android:focusable="false"
+                                android:gravity="center"
+                                android:inputType="textEmailAddress"
+                                android:paddingTop="14dp"
+                                android:paddingBottom="15dp"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:visibility="visible"
+                                tools:ignore="TextViewEdits"/>
+
+                        <TextView
+
+                                android:id="@+id/btn_setting_emailP"
+                                style="@style/TextAppearance.AppCompat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/size_4_dp"
+                                android:layout_marginEnd="@dimen/padding_24dp"
+                                android:background="@drawable/shape_buttom_blue"
+                                android:drawableStart="@drawable/ic_mode_edit_light_24dp"
+                                android:text=""
+                                android:textColor="@color/white"
+                                android:visibility="visible"/>
+
+                        <net.bohush.geometricprogressview.GeometricProgressView
+                                android:id="@+id/pb_email"
+                                android:layout_width="@dimen/padding_24dp"
+                                android:layout_height="@dimen/padding_24dp"
+                                android:layout_centerInParent="true"
+                                android:visibility="invisible"
+                                app:gp_color="@android:color/darker_gray"
+                                app:gp_duration="800"
+                                app:gp_figure_padding="3dp"
+                                app:gp_number_of_angles="7"
+                                app:gp_type="triangle"/>
+                    </RelativeLayout>
+
+                    <Button
+                            android:id="@+id/btn_setting_repasswordP"
+                            style="@style/TextAppearance.AppCompat"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/layout_btn_emailP"
+                            android:layout_marginLeft="32dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginRight="32dp"
+                            android:background="@drawable/shape_buttom_red"
+                            android:text="@string/btn_repassword"
+                            android:textColor="@color/white"/>
+
+                    <TextView
+
+                            android:id="@+id/txt_coverP"
+                            style="@style/TextAppearance.AppCompat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/btn_setting_repasswordP"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginStart="@dimen/size_14_dp"
+                            android:layout_marginTop="@dimen/padding_16dp"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold"/>
+
+                    <View
+                            android:id="@+id/view_1"
+                            style="@style/TextAppearance.AppCompat"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/txt_coverP"
+                            android:layout_marginLeft="@dimen/padding_16dp"
+                            android:layout_marginTop="@dimen/padding_16dp"
+                            android:layout_marginRight="@dimen/padding_16dp"
+                            android:background="@drawable/shape_line"/>
+
+                    <!-- điều tôi mang lai -->
+                    <RelativeLayout
+                            android:id="@+id/layout_my_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/view_1">
+
+                        <net.bohush.geometricprogressview.GeometricProgressView
+                                android:id="@+id/pb_my_value"
+                                android:layout_width="@dimen/padding_24dp"
+                                android:layout_height="@dimen/padding_24dp"
+                                android:layout_below="@id/txt_my_valueP"
+                                android:layout_centerInParent="true"
+                                android:visibility="invisible"
+                                app:gp_color="@android:color/darker_gray"
+                                app:gp_duration="800"
+                                app:gp_figure_padding="3dp"
+                                app:gp_number_of_angles="7"
+                                app:gp_type="triangle"/>
+
+                        <TextView
+                                android:id="@+id/txt_my_valueP"
+                                style="@style/TextAppearance.AppCompat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginRight="8dp"
+                                android:text="ĐIỀU TÔI MANG LẠI "
+                                android:textColor="@color/black"
+                                android:textStyle="normal"/>
+
+                        <TextView
+                                android:id="@+id/btn_setting_txt_my_valueP"
+                                style="@style/TextAppearance.AppCompat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="@dimen/padding_16dp"
+                                android:layout_marginRight="8dp"
+                                android:drawableStart="@drawable/ic_mode_edit_black_24dp"
+                                android:text=""
+                                android:textColor="@color/brown"
+                                android:textStyle="bold"/>
+
+                        <TextView
+                                android:id="@+id/txt_write_my_valueP"
+                                style="@style/TextAppearance.AppCompat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txt_my_valueP"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginRight="8dp"/>
+
+                        <EditText
+                                android:id="@+id/edt_write_my_valueP"
+                                style="@style/TextAppearance.AppCompat"
+                                android:layout_width="match_parent"
+                                android:layout_height="150dp"
+                                android:layout_below="@id/txt_my_valueP"
+                                android:layout_marginStart="@dimen/size_4_dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginRight="8dp"
+                                android:background="@drawable/shape_bg_edittext"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:gravity="top|left"
+                                android:inputType="textMultiLine"
+                                android:lines="8"
+                                android:maxLines="10"
+                                android:minLines="6"
+                                android:padding="@dimen/size_4_dp"
+                                android:scrollbars="vertical"
+                                android:visibility="gone"
+                                tools:ignore="RtlHardcoded"/>
+                    </RelativeLayout>
+
+                    <!-- giới thiệu bản thân  -->
+                    <View
+                            android:id="@+id/view_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/layout_my_value"
+                            android:layout_marginLeft="@dimen/padding_16dp"
+                            android:layout_marginTop="@dimen/padding_16dp"
+                            android:layout_marginRight="@dimen/padding_16dp"
+                            android:background="@drawable/shape_line"/>
+
+                    <RelativeLayout
+                            android:id="@+id/layout_descriptionP"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/view_2">
+
+                        <net.bohush.geometricprogressview.GeometricProgressView
+                                android:id="@+id/pb_description"
+                                android:layout_width="@dimen/padding_24dp"
+                                android:layout_height="@dimen/padding_24dp"
+                                android:layout_below="@id/txt_descriptionP"
+                                android:layout_centerInParent="true"
+                                android:visibility="invisible"
+                                app:gp_color="@android:color/darker_gray"
+                                app:gp_duration="800"
+                                app:gp_figure_padding="3dp"
+                                app:gp_number_of_angles="7"
+                                app:gp_type="triangle"/>
+
+                        <TextView
+
+                                android:id="@+id/txt_descriptionP"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginRight="8dp"
+                                android:text="GIỚI THIỆU BẢN THÂN "
+                                android:textColor="@color/black"
+                                android:textStyle="normal"/>
+
+                        <TextView
+                                android:id="@+id/btn_setting_txt_descriptionP"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="@dimen/padding_16dp"
+                                android:layout_marginRight="8dp"
+                                android:drawableStart="@drawable/ic_mode_edit_black_24dp"
+                                android:text=""
+                                android:textColor="@color/brown"
+                                android:textStyle="bold"/>
+
+                        <TextView
+                                android:id="@+id/txt_write_descriptionP"
+                                style="@style/TextAppearance.AppCompat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txt_descriptionP"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginRight="8dp"/>
+
+                        <EditText
+                                android:id="@+id/edt_write_descriptionP"
+                                style="@style/TextAppearance.AppCompat"
+                                android:layout_width="match_parent"
+                                android:layout_height="150dp"
+                                android:layout_below="@id/txt_descriptionP"
+                                android:layout_marginStart="@dimen/size_4_dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginRight="8dp"
+                                android:background="@drawable/shape_bg_edittext"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:gravity="top|left"
+                                android:inputType="textMultiLine"
+                                android:lines="8"
+                                android:maxLines="10"
+                                android:minLines="6"
+                                android:padding="@dimen/size_4_dp"
+                                android:scrollbars="vertical"
+                                android:visibility="gone"
+                                tools:ignore="RtlHardcoded"/>
+                    </RelativeLayout>
+
+                    <View
+                            android:id="@+id/view_3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/layout_descriptionP"
+                            android:layout_marginLeft="@dimen/padding_16dp"
+                            android:layout_marginTop="@dimen/padding_16dp"
+                            android:layout_marginRight="@dimen/padding_16dp"
+                            android:background="@drawable/shape_line"/>
+
+                    <RelativeLayout
+                            android:id="@+id/layout_languagesP"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/view_3">
+
+                        <net.bohush.geometricprogressview.GeometricProgressView
+                                android:id="@+id/pb_languages"
+                                android:layout_width="@dimen/padding_24dp"
+                                android:layout_height="@dimen/padding_24dp"
+                                android:layout_below="@id/txt_languagesP"
+                                android:layout_centerInParent="true"
+                                android:visibility="invisible"
+                                app:gp_color="@android:color/darker_gray"
+                                app:gp_duration="800"
+                                app:gp_figure_padding="3dp"
+                                app:gp_number_of_angles="7"
+                                app:gp_type="triangle"/>
+
+                        <TextView
+
+                                android:id="@+id/txt_languagesP"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginRight="8dp"
+                                android:text="NGÔN NGỮ"
+                                android:textColor="@color/black"
+                                android:textStyle="normal"/>
+
+                        <TextView
+                                android:id="@+id/btn_setting_txt_languagesP"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="@dimen/padding_16dp"
+                                android:layout_marginRight="8dp"
+                                android:drawableStart="@drawable/ic_mode_edit_black_24dp"
+                                android:textColor="@color/brown"
+                                android:textStyle="bold"/>
+
+                        <TextView
+                                android:id="@+id/txt_write_languagesP"
+                                style="@style/TextAppearance.AppCompat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txt_languagesP"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginRight="8dp"/>
+
+                        <EditText
+                                android:id="@+id/edt_write_languagesP"
+                                style="@style/TextAppearance.AppCompat"
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp"
+                                android:layout_below="@id/txt_languagesP"
+                                android:layout_marginStart="@dimen/size_4_dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginRight="8dp"
+                                android:background="@drawable/shape_bg_edittext"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:gravity="top|left"
+                                android:inputType="textMultiLine"
+                                android:padding="@dimen/size_4_dp"
+                                android:scrollbars="vertical"
+                                android:visibility="gone"
+                                tools:ignore="RtlHardcoded"/>
+                    </RelativeLayout>
+
+
+                    <View
+                            android:id="@+id/view_5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/layout_languagesP"
+                            android:layout_marginLeft="@dimen/padding_16dp"
+                            android:layout_marginTop="@dimen/padding_16dp"
+                            android:layout_marginRight="@dimen/padding_16dp"
+                            android:background="@drawable/shape_line"/>
+
+                    <RelativeLayout
+
+                            android:id="@+id/layout_jobP"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/view_5">
+
+                        <net.bohush.geometricprogressview.GeometricProgressView
+                                android:id="@+id/pb_job"
+                                android:layout_width="@dimen/padding_24dp"
+                                android:layout_height="@dimen/padding_24dp"
+                                android:layout_below="@id/txt_jobP"
+                                android:layout_centerInParent="true"
+                                android:visibility="invisible"
+                                app:gp_color="@android:color/darker_gray"
+                                app:gp_duration="800"
+                                app:gp_figure_padding="3dp"
+                                app:gp_number_of_angles="7"
+                                app:gp_type="triangle"/>
+
+                        <TextView
+
+                                android:id="@+id/txt_jobP"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginRight="8dp"
+                                android:text="CÔNG VIỆC"
+                                android:textColor="@color/black"
+                                android:textStyle="normal"/>
+
+                        <TextView
+                                android:id="@+id/btn_setting_txt_jobP"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="@dimen/padding_16dp"
+                                android:layout_marginRight="8dp"
+                                android:drawableStart="@drawable/ic_mode_edit_black_24dp"
+                                android:textColor="@color/brown"
+                                android:textStyle="bold"/>
+
+                        <TextView
+                                android:id="@+id/txt_write_jobP"
+                                style="@style/TextAppearance.AppCompat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/btn_setting_txt_jobP"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginRight="8dp"/>
+
+                        <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txt_jobP"
+                                android:layout_marginStart="@dimen/size_4_dp"
+                                android:visibility="visible">
+
+                            <CheckBox
+                                    android:id="@+id/cb_guider"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="invisible"/>
+
+                            <CheckBox
+                                    android:id="@+id/cb_semi_guider"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/cb_guider"
+                                    android:visibility="invisible"/>
+
+                            <CheckBox
+                                    android:id="@+id/cb_condutor"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toEndOf="@+id/cb_semi_guider"
+                                    android:visibility="invisible"/>
+
+                            <CheckBox
+                                    android:id="@+id/cb_translator"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/cb_guider"
+                                    android:layout_toEndOf="@+id/cb_semi_guider"
+                                    android:visibility="invisible"/>
+
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+
+                    <View
+                            android:id="@+id/view_4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/layout_jobP"
+                            android:layout_marginLeft="@dimen/padding_16dp"
+                            android:layout_marginTop="@dimen/padding_16dp"
+                            android:layout_marginRight="@dimen/padding_16dp"
+                            android:background="@drawable/shape_line"/>
+
+                    <RelativeLayout
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/view_4">
+
+                        <TextView
+                                android:id="@+id/txt_skillP"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginRight="8dp"
+                                android:text="KỸ NĂNG"
+                                android:textAllCaps="false"
+                                android:textColor="@color/black"
+                                android:textStyle="normal"/>
+
+                        <TextView
+                                android:id="@+id/btn_setting_txt_skillP"
+                                style="@style/TextAppearance.AppCompat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="@dimen/padding_16dp"
+                                android:layout_marginRight="8dp"
+                                android:drawableStart="@drawable/ic_mode_edit_black_24dp"
+                                android:text=""
+                                android:textColor="@color/brown"
+                                android:textStyle="bold"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rcv_skill"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_below="@id/btn_setting_txt_skillP"
+                                android:layout_marginStart="@dimen/padding_24dp"
+                                android:layout_marginTop="@dimen/padding_16dp"
+                                android:layout_marginEnd="@dimen/padding_24dp"/>
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

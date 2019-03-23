@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_4_dp"
+                android:layout_marginStart="@dimen/size_4_dp"
+                android:background="@drawable/shape_bg_edittext"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="8dp" tools:ignore="RtlSymmetry">
+
+    <TextView
+
+            android:id="@+id/txt_day_payment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_16dp"
+            android:text="000000"
+            android:textSize="13sp"/>
+
+    <TextView
+            android:id="@+id/txt_request_payment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_day_payment"
+            android:layout_marginStart="@dimen/padding_16dp"
+            android:text="000000"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+    <Button
+            android:id="@+id/btn_status_payment"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/shape_btn_wating"
+            android:paddingStart="@dimen/padding_24dp"
+            android:paddingEnd="@dimen/padding_24dp"
+            android:text="Thành công"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            tools:ignore="RtlSymmetry"/>
+
+    <TextView
+            android:visibility="gone"
+            android:id="@+id/txt_notification_payment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_request_payment"
+            android:layout_marginStart="@dimen/padding_16dp"
+            android:layout_marginTop="@dimen/padding_16dp"
+            android:layout_marginEnd="@dimen/padding_16dp"
+            android:background="@drawable/shape_bg_edittext"
+            android:gravity="center"
+            android:padding="@dimen/size_4_dp"/>
+
+
+</RelativeLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="padding_16dp">16dp</dimen>
+    <dimen name="padding_24dp">24dp</dimen>
+    <dimen name="size_10_dp">10dp</dimen>
+    <dimen name="size_22_dp">22dp</dimen>
+    <dimen name="size_4_dp">4dp</dimen>
+    <dimen name="size_14_dp">14dp</dimen>
+
+    <!-- Text  -->
+    <dimen name="text_size_24sp">24sp</dimen>
+
+</resources>
