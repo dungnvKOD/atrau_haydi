@@ -19,8 +19,8 @@ class SkillPresenter(var onViewSkillListener: OnViewSkillListener) :
         skillModel.putSkills(skills)
     }
 
-    override fun getSkillSuccess(skills: ArrayList<Skill>) {
-        onViewSkillListener.getSkillSuccess(skills)
+    override fun getSkillSuccess(skills: ArrayList<Skill>?) {
+        onViewSkillListener.getSkillSuccess(skills!!)
     }
 
     override fun getSkillFaile() {

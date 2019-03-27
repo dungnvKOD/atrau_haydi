@@ -3,13 +3,11 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/size_4_dp"
                 android:layout_marginStart="@dimen/size_4_dp"
-                android:background="@drawable/shape_bg_edittext"
                 android:orientation="vertical"
                 android:paddingTop="8dp"
                 android:paddingEnd="8dp"
-                android:paddingBottom="8dp" tools:ignore="RtlSymmetry">
+                tools:ignore="RtlSymmetry">
 
     <TextView
 
@@ -32,6 +30,7 @@
             android:textStyle="bold"/>
 
     <Button
+            android:gravity="center"
             android:id="@+id/btn_status_payment"
             android:layout_width="130dp"
             android:layout_height="40dp"
@@ -39,7 +38,6 @@
             android:background="@drawable/shape_btn_wating"
             android:paddingStart="@dimen/padding_24dp"
             android:paddingEnd="@dimen/padding_24dp"
-            android:text="Thành công"
             android:textAllCaps="false"
             android:textColor="@color/white"
             tools:ignore="RtlSymmetry"/>
@@ -56,6 +54,12 @@
             android:background="@drawable/shape_bg_edittext"
             android:gravity="center"
             android:padding="@dimen/size_4_dp"/>
+
+    <View
+            android:layout_marginTop="@dimen/size_10_dp"
+            android:background="@drawable/shape_line"
+            android:layout_width="match_parent" android:layout_height="0.1dp"
+            android:layout_below="@+id/txt_notification_payment"/>
 
 
 </RelativeLayout>

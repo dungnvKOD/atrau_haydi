@@ -30,4 +30,11 @@
         <item name="colorControlActivated">@color/start</item>
     </style>
 
+
+    <style name="BottomNavigation">
+        <item name="android:background">@color/black</item>
+        <item name="itemBackground">@drawable/menu_</item>
+        <item name="itemIconTint">@color/blule</item>
+
+    </style>
 </resources>

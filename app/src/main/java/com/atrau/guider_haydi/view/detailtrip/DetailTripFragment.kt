@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_detai_new_tripl.*
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.util.Log
@@ -22,6 +23,9 @@ import com.atrau.guider_haydi.util.MyUtils
 import com.atrau.guider_haydi.view.HomeActivity
 import com.atrau.guider_haydi.App
 import com.atrau.guider_haydi.R
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.SimpleTarget
 
 
 @Suppress("PLUGIN_WARNING")
@@ -36,18 +40,35 @@ class DetailTripFragment : Fragment(), DetailTripViewListener, View.OnClickListe
 
     override fun onStart() {
         super.onStart()
-
+        Log.d(TAG, App.getMyInsatnce().tripStatus)
         if (App.getMyInsatnce().tripStatus == "done" || App.getMyInsatnce().tripStatus == "accept") {
             btn_ok_trip.visibility = View.GONE
             btn_cancel.visibility = View.GONE
 
         }
+        if (App.getMyInsatnce().tripStatus == "cancel") {
+            status_detai.visibility = View.VISIBLE
+            status_detai.setBackgroundResource(R.drawable.shape_red)
+            status_detai.text = "Đã hủy"
+        } else if (App.getMyInsatnce().tripStatus == "reject") {
+            status_detai.visibility = View.VISIBLE
+            status_detai.setBackgroundResource(R.drawable.shape_red)
+            status_detai.text = "Đã Từ chối"
+        } else if (App.getMyInsatnce().tripStatus == "accept") {
+            status_detai.visibility = View.VISIBLE
+            status_detai.setBackgroundResource(R.drawable.shape_btn_wating)
+            status_detai.text = "Đã chấp nhận"
+        } else if (App.getMyInsatnce().tripStatus == "done") {
+            status_detai.visibility = View.VISIBLE
+            status_detai.setBackgroundResource(R.drawable.shape_done)
+            status_detai.text = "Đã hoàn thành"
+        }
     }
 
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
 
         return inflater.inflate(R.layout.fragment_detai_new_tripl, container, false)
@@ -60,8 +81,8 @@ class DetailTripFragment : Fragment(), DetailTripViewListener, View.OnClickListe
         (activity as HomeActivity).setSupportActionBar(tool_bar_trip_detail)
         (activity as HomeActivity).supportActionBar!!.setDisplayShowTitleEnabled(true)
         tool_bar_trip_detail.navigationIcon = (activity as HomeActivity).resources.getDrawable(
-                R.drawable.ic_arrow_back_black_24dp,
-                (activity as HomeActivity).theme
+            R.drawable.ic_arrow_back_black_24dp,
+            (activity as HomeActivity).theme
         )
 
         tool_bar_trip_detail.setNavigationOnClickListener {
@@ -94,12 +115,28 @@ class DetailTripFragment : Fragment(), DetailTripViewListener, View.OnClickListe
     private fun setView(detailTrip: DetailTrip) {
 
 
-
+        Toast.makeText(activity, detailTrip.id.toString(), Toast.LENGTH_LONG).show()
+        img_avatar.setImageResource(R.drawable.ic_user)
         if (detailTrip.avatar == null || detailTrip.avatar == "" || detailTrip.avatar == "null") {
             img_avatar.setImageResource(R.drawable.ic_user)
         } else {
 
-            Glide.with(activity!!).load(detailTrip.avatar).into(img_avatar)
+//            Glide.with(activity!!).load(detailTrip.avatar).into(img_avatar)
+            //Load image
+            Glide.with(activity!!).load(detailTrip.avatar).apply(
+                RequestOptions()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .skipMemoryCache(true)
+            )
+                .into(object : SimpleTarget<Drawable>(200, 200) {
+                    override fun onResourceReady(
+                        resource: Drawable,
+                        transition: com.bumptech.glide.request.transition.Transition<in Drawable>?
+                    ) {
+
+                        img_avatar.setImageDrawable(resource)
+                    }
+                })
         }
         edt_yeu_cau_nhan_dang.text = detailTrip.note
         txt_name.text = detailTrip.name
@@ -108,14 +145,14 @@ class DetailTripFragment : Fragment(), DetailTripViewListener, View.OnClickListe
         btn_call_trip_detail.setOnClickListener {
 
             if (ContextCompat.checkSelfPermission(
-                            activity!!,
-                            Manifest.permission.CALL_PHONE
-                    ) != PackageManager.PERMISSION_GRANTED
+                    activity!!,
+                    Manifest.permission.CALL_PHONE
+                ) != PackageManager.PERMISSION_GRANTED
             ) {
                 ActivityCompat.requestPermissions(
-                        activity!!,
-                        arrayOf(Manifest.permission.CALL_PHONE),
-                        1
+                    activity!!,
+                    arrayOf(Manifest.permission.CALL_PHONE),
+                    1
                 )
             } else {
                 call(detailTrip.phone.toString())
@@ -123,12 +160,11 @@ class DetailTripFragment : Fragment(), DetailTripViewListener, View.OnClickListe
         }
         Log.d(TAG, "${detailTrip.startDay.toString()} dung")
         txt_start_day.text =
-                MyUtils.convertTime(MyUtils.dateToLong(detailTrip.startDay.toString()), MyUtils.TYPE_DATE_D_M_YYYY)
+            MyUtils.convertTime(MyUtils.dateToLong(detailTrip.startDay.toString()), MyUtils.TYPE_DATE_D_M_YYYY)
         txt_ket_thuc.text =
-                MyUtils.convertTime(MyUtils.dateToLong(detailTrip.endDay.toString()), MyUtils.TYPE_DATE_D_M_YYYY)
+            MyUtils.convertTime(MyUtils.dateToLong(detailTrip.endDay.toString()), MyUtils.TYPE_DATE_D_M_YYYY)
         txt_thoi_gian_hen.text = detailTrip.timeMeet
         txt_dia_diem_hen.text = detailTrip.addressMeet
-
 
     }
 
@@ -143,9 +179,9 @@ class DetailTripFragment : Fragment(), DetailTripViewListener, View.OnClickListe
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         if (ContextCompat.checkSelfPermission(
-                        activity!!,
-                        Manifest.permission.CALL_PHONE
-                ) == PackageManager.PERMISSION_GRANTED
+                activity!!,
+                Manifest.permission.CALL_PHONE
+            ) == PackageManager.PERMISSION_GRANTED
         ) {
             call("22222")
         }

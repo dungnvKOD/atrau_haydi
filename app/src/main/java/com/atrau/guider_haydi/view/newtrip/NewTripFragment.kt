@@ -86,6 +86,7 @@ class NewTripFragment : Fragment(),
         txt_wating.setOnClickListener(this)
         txt_view_cancel.setOnClickListener(this)
         setting.setOnClickListener(this)
+        txt_view_all.setOnClickListener(this)
 
         scrollListener = object : EndlessRecyclerViewScrollListener(linearLayoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
@@ -98,6 +99,12 @@ class NewTripFragment : Fragment(),
         }
 
         rcv_new_trip.addOnScrollListener(scrollListener)
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "oooooooo")
     }
 
     override fun getMerchantSuccess(total: Int, listMerchant: ArrayList<Array<Any>>) {
@@ -140,22 +147,46 @@ class NewTripFragment : Fragment(),
 
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.txt_view_finish -> {
                 status = DONE
+                txt_view_finish.setTextColor(this.resources.getColor(R.color.blule))
+                txt_wating.setTextColor(this.resources.getColor(R.color.black))
+                txt_view_cancel.setTextColor(this.resources.getColor(R.color.black))
+                txt_view_all.setTextColor(this.resources.getColor(R.color.black))
                 newTripPresenter.getMerchant("done")
             }
             R.id.txt_wating -> {
                 status = NEW
+                txt_view_finish.setTextColor(this.resources.getColor(R.color.black))
+                txt_wating.setTextColor(this.resources.getColor(R.color.blule))
+                txt_view_cancel.setTextColor(this.resources.getColor(R.color.black))
+                txt_view_all.setTextColor(this.resources.getColor(R.color.black))
                 newTripPresenter.getMerchant("new")
             }
 
             R.id.txt_view_cancel -> {
                 status = CANCEL
+                txt_view_finish.setTextColor(this.resources.getColor(R.color.black))
+                txt_wating.setTextColor(this.resources.getColor(R.color.black))
+                txt_view_cancel.setTextColor(this.resources.getColor(R.color.blule))
+                txt_view_all.setTextColor(this.resources.getColor(R.color.black))
                 newTripPresenter.getMerchant("reject")
             }
             R.id.setting -> {
+                val timeFragment = TimeBottomSheetFragment.newFragment
+                timeFragment.show(childFragmentManager, timeFragment.javaClass.name)
+            }
+            R.id.txt_view_all -> {
+                status = ""
+                newTripPresenter.getAllMerchant(5, 0)
+                newTripAdapter.cleanItem()
+                txt_view_finish.setTextColor(this.resources.getColor(R.color.black))
+                txt_wating.setTextColor(this.resources.getColor(R.color.black))
+                txt_view_cancel.setTextColor(this.resources.getColor(R.color.black))
+                txt_view_all.setTextColor(this.resources.getColor(R.color.blule))
 
             }
         }

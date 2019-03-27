@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FCF3C6</color>
-    <color name="colorPrimaryDark">#ACA999</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#2490EB</color>
+    <color name="colorPrimaryDark">#6539ba</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="bgBottomNavigation">#fe485a</color>
 
 
     <!---->
@@ -17,4 +18,10 @@
     <color name="blue_fb">#3B5998</color>
 
     <color name="start">#BAC115</color>
+
+    <!--<selector xmlns:android="http://schemas.android.com/apk/res/android">-->
+        <!--<item android:state_checked="true" android:color="@android:color/holo_blue_dark" />-->
+        <!--<item android:color="@android:color/darker_gray"  />-->
+    <!--</selector>-->
+
 </resources>

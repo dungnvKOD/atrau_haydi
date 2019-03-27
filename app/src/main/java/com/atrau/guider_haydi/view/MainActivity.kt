@@ -14,12 +14,14 @@ import com.atrau.guider_haydi.conmon.Constant
 import com.atrau.guider_haydi.R
 import com.atrau.guider_haydi.util.MyLocation
 import com.google.android.gms.common.api.ResolvableApiException
+
 //import com.google.firebase.FirebaseApp
 //import com.google.firebase.iid.FirebaseInstanceId
 
 
 class MainActivity : BaseActivity(), MyLocation.OnGetLocation {
     var code: String? = null
+
 
     companion object {
         val TAG = "MainActivity"
@@ -28,14 +30,15 @@ class MainActivity : BaseActivity(), MyLocation.OnGetLocation {
     private lateinit var onListenner: OnListenner
     private lateinit var location: MyLocation
     var area: String? = null
+    var linkSetting: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         supportFragmentManager.beginTransaction()
-                .add(R.id.main_layout_, LoginFragment.newFragment)
-                .commit()
+            .add(R.id.main_layout_, LoginFragment.newFragment)
+            .commit()
         init()
     }
 
@@ -57,8 +60,8 @@ class MainActivity : BaseActivity(), MyLocation.OnGetLocation {
         } else {
             toast("chua dc cap ")
             requestPermissionsSafely(
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    Constant.LOCATION_CODE
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                Constant.LOCATION_CODE
             )
         }
     }
@@ -66,9 +69,9 @@ class MainActivity : BaseActivity(), MyLocation.OnGetLocation {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (ActivityCompat.checkSelfPermission(
-                        this@MainActivity,
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
+                this@MainActivity,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
         ) {
             //đồng ý cấp quyền
             //TODO gọi fun lấy vị trí

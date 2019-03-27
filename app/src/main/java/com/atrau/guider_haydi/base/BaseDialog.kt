@@ -13,7 +13,6 @@ abstract class BaseDialog(context: Context) : Dialog(context) {
         setCancelable(false)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
 
-
     }
 
     override fun onStart() {

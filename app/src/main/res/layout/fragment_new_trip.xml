@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.achau.myhaydi.view.newtrip.NewTripFragment">
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar_trip"
@@ -22,23 +21,36 @@
             android:layout_marginEnd="@dimen/size_14_dp"
             android:gravity="center"
             android:text="ĐƠN HÀNG"
+            android:textStyle="bold"
             android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
     </androidx.appcompat.widget.Toolbar>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="35dp">
 
+
         <TextView
+                android:id="@+id/txt_view_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/padding_16dp"
+                android:text="Tất cả"
+                android:textColor="@color/blule"
+                android:textStyle="italic" />
+        <TextView
+                android:layout_toEndOf="@id/txt_view_all"
             android:id="@+id/txt_view_finish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/padding_16dp"
+                android:textColor="@color/black"
+
+                android:layout_marginStart="@dimen/padding_16dp"
             android:text="Hoàn thành"
-            android:textColor="@color/black"
             android:textStyle="italic" />
 
 
@@ -71,11 +83,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
+
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/padding_16dp"
             android:layout_marginEnd="@dimen/padding_16dp"
-            android:drawableStart="@drawable/ic_user"
+            android:drawableStart="@drawable/ic_passage_of_time"
             android:textColor="@color/black" />
 
         <TextView

@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.item_campaign.view.*
 class CampaignAdapter(val context: Context, val campaigns: ArrayList<Campaign>) :
     RecyclerView.Adapter<CampaignAdapter.MyViewHoder>() {
 
-
+    private lateinit var paymentOnclickListener: PaymentOnclickListener
     private val inflater = LayoutInflater.from(context)
 
 
@@ -32,6 +32,9 @@ class CampaignAdapter(val context: Context, val campaigns: ArrayList<Campaign>) 
         val campaign: Campaign = campaigns[holder.adapterPosition]
         Log.d("dung", "link ..." + campaign.images!![0])
         Glide.with(context).load(campaign.images!![0]).into(holder.image)
+        holder.itemView.setOnClickListener {
+            paymentOnclickListener.onClick(campaign)
+        }
     }
 
     fun updateCampaign(campaign: Campaign) {
@@ -41,5 +44,17 @@ class CampaignAdapter(val context: Context, val campaigns: ArrayList<Campaign>) 
 
     inner class MyViewHoder(view: View) : RecyclerView.ViewHolder(view) {
         val image: ImageView = view.img_campaign
+    }
+
+
+    fun setPaymentOnclickListener(paymentOnclickListener: PaymentOnclickListener) {
+        this.paymentOnclickListener = paymentOnclickListener
+
+    }
+
+    interface PaymentOnclickListener {
+        fun onClick(campaign: Campaign)
+
+
     }
 }

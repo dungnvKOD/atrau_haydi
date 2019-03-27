@@ -20,7 +20,6 @@ class SkillModel(var onSkillModelListener: OnSkillModelListener) {
             Client.getService()!!.getSkillAll(App.getMyInsatnce().token)
         call.enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-
             }
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -41,8 +40,8 @@ class SkillModel(var onSkillModelListener: OnSkillModelListener) {
                         val skill: Skill =
                             Skill(id.toInt(), name, icon, desc)
                         skills.add(skill)
+                        Log.d(TAG, "get add skill  ")
                     }
-                    Log.d(TAG,"get add skill  ")
                     onSkillModelListener.getSkillSuccess(skills)
                 } else {
 //                    val jsonObject: JSONObject = JSONObject(response.errorBody()!!.string())
@@ -97,10 +96,12 @@ class SkillModel(var onSkillModelListener: OnSkillModelListener) {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
 
                 if (response.code() == 200) { //thanh cong
+
+//                    Log.d(TAG,response.body()!!.string()+".....")
                     val jsonObject = JSONObject(response.body()!!.string())
                     val jsonArr = jsonObject.getJSONArray("data")
                     val skills: ArrayList<Skill> = ArrayList()
-
+                    Log.d(TAG, "test: " + response.body()!!.string())
                     for (i in 0 until jsonArr.length()) {
                         val skillJson: JSONObject? = jsonArr.getJSONObject(i)
                         val id: Int = skillJson!!.getInt("id")
@@ -108,8 +109,9 @@ class SkillModel(var onSkillModelListener: OnSkillModelListener) {
                         val level: Double = skillJson.getDouble("level")
                         val skill: Skill = Skill(id, name, level)
                         skills.add(skill)
-
+                        Log.d(TAG, "$id..$name..$level.")
                     }
+                    Log.d(TAG, skills.size.toString())
                     onSkillModelListener.getMySkill(skills)
                 } else { //that bai
 

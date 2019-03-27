@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import android.app.NotificationManager
 import android.app.NotificationChannel
 import com.atrau.guider_haydi.R
+import com.atrau.guider_haydi.dto.Campaign
 import com.atrau.guider_haydi.view.message_group.MessageGroupFragment
 
 import com.google.firebase.iid.FirebaseInstanceId
@@ -37,8 +38,10 @@ class HomeActivity : AppCompatActivity() {
         var isAppRunning: Boolean = false
     }
 
+    lateinit var campaign: Campaign
+
     private lateinit var onImageListener: OnImageListener
-    var arrSkill: ArrayList<Skill> = ArrayList()
+    var arrSkill: ArrayList<Skill>? = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

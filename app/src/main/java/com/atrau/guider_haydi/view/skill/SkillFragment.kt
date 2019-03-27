@@ -29,6 +29,7 @@ class SkillFragment : Fragment(),
     private var skills: ArrayList<Skill> = ArrayList()
     private lateinit var myAllSkillAdapter: MyAllSkillAdapter
     private lateinit var onCkickSkillListener: OnCkickSkillListener
+    private var check = ""
 
     companion object {
         val TAG = "SkillFragment"
@@ -47,8 +48,8 @@ class SkillFragment : Fragment(),
         (activity as HomeActivity).setSupportActionBar(toolbar_add_skill)
         (activity as HomeActivity).supportActionBar!!.setDisplayShowTitleEnabled(true)
         toolbar_add_skill.navigationIcon = (activity as HomeActivity).resources.getDrawable(
-                R.drawable.ic_arrow_back_black_24dp,
-                (activity as HomeActivity).theme
+            R.drawable.ic_arrow_back_black_24dp,
+            (activity as HomeActivity).theme
         )
 
         toolbar_add_skill.setNavigationOnClickListener {
@@ -69,7 +70,7 @@ class SkillFragment : Fragment(),
         rcv_kill_add.layoutManager = linearLayoutManager
         myAllSkillAdapter = MyAllSkillAdapter(
             activity!!,
-            (activity as HomeActivity).arrSkill
+            (activity as HomeActivity).arrSkill!!
         )
         rcv_kill_add.adapter = myAllSkillAdapter
         btn_add_skill.setOnClickListener(this)
@@ -86,7 +87,7 @@ class SkillFragment : Fragment(),
                 Log.d(TAG, "my skill = " + myAllSkillAdapter.getHereSkills().size.toString())
 
                 if (skills.size == myAllSkillAdapter.getHereSkills().size) {
-                    Toast.makeText(activity, "test: da co du skill ", Toast.LENGTH_LONG).show()
+//                    Toast.makeText(activity, "test: da co du skill ", Toast.LENGTH_LONG).show()
                 } else {
                     // loc nhung thnag nao chua duoc them
                     signSkill.clear()
@@ -114,13 +115,12 @@ class SkillFragment : Fragment(),
                             Toast.makeText(activity, "Đã đủ kỹ năng", Toast.LENGTH_LONG).show()
                             return
                         }
-
-                        Log.d(TAG, " ......................")
+//                        Log.d(TAG, " ......................")
                     } else {
                         signSkill = skills
                     }
 
-                    Log.d(TAG, signSkill.size.toString() + "..." + myAllSkillAdapter.getHereSkills().size)
+//                    Log.d(TAG, signSkill.size.toString() + "..." + myAllSkillAdapter.getHereSkills().size)
 
                     //lasy du lueu xong thi goi dialog
 
@@ -130,7 +130,8 @@ class SkillFragment : Fragment(),
                         object : AddSkill.DialogListener {
                             override fun onSkillListener(skill: Skill) {
                                 // cho nay se set lai skill cho no
-                                Toast.makeText(context, skill.name, Toast.LENGTH_LONG).show()
+//                                Toast.makeText(context, skill.name, Toast.LENGTH_LONG).show()
+
                                 dialog.cancel()
                                 myAllSkillAdapter.setSkill(skill)
                             }
@@ -141,7 +142,7 @@ class SkillFragment : Fragment(),
 
             R.id.btn_save_skill -> {
                 //TODO...
-                Toast.makeText(activity, "save...", Toast.LENGTH_LONG).show()
+//                Toast.makeText(activity, "save...", Toast.LENGTH_LONG).show()
 
                 val jsonArray = JSONArray()
                 for (i in 0 until myAllSkillAdapter.getHereSkills().size) {
@@ -150,6 +151,7 @@ class SkillFragment : Fragment(),
                         skill.put("skill_id", myAllSkillAdapter.getHereSkills()[i].id)
                         skill.put("name", myAllSkillAdapter.getHereSkills()[i].level)
                         jsonArray.put(skill)
+                        check = "ADD"
 
                     } catch (e: JSONException) {
                         // TODO Auto-generated catch block
@@ -159,28 +161,37 @@ class SkillFragment : Fragment(),
 
                 val hasMap: HashMap<String, ArrayList<HashMap<String, Any>>> = HashMap()
                 val arrHashMap: ArrayList<HashMap<String, Any>> = ArrayList()
+//                var checkAddSkill = 0
                 for (i in 0 until myAllSkillAdapter.getHereSkills().size) {
+//                    checkAddSkill++
                     var objHashMap: HashMap<String, Any> = HashMap()
                     objHashMap.put("skill_id", myAllSkillAdapter.getHereSkills()[i].id.toString())
                     objHashMap.put("level", myAllSkillAdapter.getHereSkills()[i].level.toString())
                     arrHashMap.add(objHashMap)
                 }
-
+//                if (myAllSkillAdapter.getHereSkills().size!=0{
+//
+//
+//                    }
                 hasMap.put("skills", arrHashMap)
                 skillPresenter.putSkills(hasMap)
-                (activity as HomeActivity).popbacktask()
+
+
             }
         }
     }
 
-
-    override fun getMySkill(arrSkill: ArrayList<Skill>) {
-        Log.d(TAG, "size=" + arrSkill.size)
-        if (arrSkill.size != null) {
-
-            (activity as HomeActivity).arrSkill = arrSkill
-        }
+    override fun getMySkill(arrSkill: ArrayList<Skill>?) {
+        Log.d(TAG, "size=" + arrSkill!!.size)
+//        if (arrSkill.size != null||arrSkill.size !=0) {
+        (activity as HomeActivity).arrSkill!!.clear()
+        (activity as HomeActivity).arrSkill = arrSkill
+//        }
         onCkickSkillListener.onClickSkill(skills)
+        if (check == "ADD") {
+            (activity as HomeActivity).popbacktask()
+            check = ""
+        }
     }
 
     override fun getSkillSuccess(skills: ArrayList<Skill>) {
@@ -188,7 +199,6 @@ class SkillFragment : Fragment(),
 //        this.skills.clear()
         this.skills = skills
         Log.d(TAG, "size update = ${this.skills.size}")
-
     }
 
     override fun onMySkillAdapter(possion: Int) {

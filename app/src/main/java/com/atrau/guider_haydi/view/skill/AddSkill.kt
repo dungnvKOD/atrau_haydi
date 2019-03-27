@@ -30,7 +30,7 @@ class AddSkill(context: Context, var skills: ArrayList<Skill>, var dialogListene
         btnCancelRate.setOnClickListener(this)
         btnSubmitRate.setOnClickListener(this)
         spinner()
-        Toast.makeText(context, skills.size.toString(), Toast.LENGTH_LONG).show()
+//        Toast.makeText(context, skills.size.toString(), Toast.LENGTH_LONG).show()
 
 
     }

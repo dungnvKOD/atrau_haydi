@@ -22,7 +22,6 @@ class MyUtils {
 
         @SuppressLint("SimpleDateFormat")
         fun convertTime(time: Long, type: String): String {
-            val calendar = Calendar.getInstance()
             val sdf = SimpleDateFormat(type)
             val date = Date(time)
             sdf.timeZone = TimeZone.getDefault()

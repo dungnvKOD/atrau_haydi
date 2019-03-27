@@ -62,8 +62,8 @@ class ProfileModel(val onProfileListenner: OnProfileListenner) {
                     val createdAt = jsonObj.getString("created_at")
                     val updatedAt = jsonObj.getString("updated_at")
                     val jobs = jsonObj.getString("jobs")
-                    if(price=="null"||price==""||price==null){
-                        price="0"
+                    if (price == "null" || price == "" || price == null) {
+                        price = "0"
                     }
                     val guideDto = GuideDto(
                         id,
@@ -122,7 +122,7 @@ class ProfileModel(val onProfileListenner: OnProfileListenner) {
 
                     } else if (check == Constant.COVER) {
                         onProfileListenner.getCover(guideDto)
-                    }else if (check== Constant.JOB){
+                    } else if (check == Constant.JOB) {
                         onProfileListenner.getMyJob(guideDto)
 
                     }
@@ -164,7 +164,6 @@ class ProfileModel(val onProfileListenner: OnProfileListenner) {
         val call: Call<ResponseBody> = Client.getService()!!.getSkill(token)
         call.enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-
 
             }
 
@@ -229,18 +228,19 @@ class ProfileModel(val onProfileListenner: OnProfileListenner) {
         })
     }
 
-    fun putJob(hashMap: HashMap<String, ArrayList<Int>>,jobType:String) {
+    fun putJob(hashMap: HashMap<String, ArrayList<Int>>, jobType: String) {
+        Log.d(TAG, "$hashMap  ...dung")
         val call: Call<ResponseBody> = Client.getService()!!.putJob(App.getMyInsatnce().token, hashMap)
         call.enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-
 
             }
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.code() == 200) {
                     //Goi  update job
-                    getProfile(App.getMyInsatnce().token,jobType)
+
+                    getProfile(App.getMyInsatnce().token, jobType)
                     Log.d(TAG, "ok....${response.body()!!.string()}")
                 }
             }

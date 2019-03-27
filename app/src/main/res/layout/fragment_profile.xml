@@ -21,11 +21,12 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
+
                     android:id="@+id/img_cover"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:scaleType="center"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/mau"
                     app:layout_collapseMode="parallax"/>
 
@@ -34,20 +35,31 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
+
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-                <TextView
-                        android:id="@+id/txt_tool_bar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/padding_24dp"
-                        android:layout_marginEnd="@dimen/size_14_dp"
-                        android:gravity="center"
-                        android:text="HỒ SƠ"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold"/>
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/txt_tool_bar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/padding_16dp"
+                            android:gravity="center"
+                            android:text="HỒ SƠ"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold"/>
+                    <ImageView
+                            android:layout_marginBottom="@dimen/size_4_dp"
+                            android:layout_marginEnd="@dimen/size_4_dp"
+                            android:layout_alignParentEnd="true"
+                            android:id="@+id/btn_add_cover"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_add_a_photo_black_24dp"/>
+                </RelativeLayout>
             </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -75,11 +87,12 @@
 
                     <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/imgAvatarP"
+                            android:scaleType="centerCrop"
                             android:layout_width="64dp"
                             android:layout_height="64dp"
                             android:layout_marginStart="@dimen/padding_16dp"
                             android:src="@drawable/ic_account_circle_black_24dp"
-                            app:civ_border_width="2dp"/>
+                            app:civ_border_width="0dp"/>
 
                     <ImageView
                             android:id="@+id/btn_add_avatarP"
@@ -661,33 +674,46 @@
                                 android:layout_marginStart="@dimen/size_4_dp"
                                 android:visibility="visible">
 
-                            <CheckBox
-                                    android:id="@+id/cb_guider"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:visibility="invisible"/>
+                            <LinearLayout
+                                    android:id="@+id/layout_job_1"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                <Spinner
+                                        android:layout_weight="1"
+                                        android:id="@+id/sp_1"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"/>
+                                <Spinner
+                                        android:layout_weight="1"
+                                        android:id="@+id/sp_2"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"/>
 
-                            <CheckBox
-                                    android:id="@+id/cb_semi_guider"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@+id/cb_guider"
-                                    android:visibility="invisible"/>
+                            </LinearLayout>
+                            <LinearLayout
+                                    android:layout_below="@+id/layout_job_1"
+                                    android:id="@+id/layout_job_2"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                <Spinner
+                                        android:layout_weight="1"
+                                        android:id="@+id/sp_3"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"/>
+                                <Spinner
+                                        android:layout_weight="1"
+                                        android:id="@+id/sp_4"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"/>
 
-                            <CheckBox
-                                    android:id="@+id/cb_condutor"
+                            </LinearLayout>
+                            <TextView
+                                    android:id="@+id/txt_get_job"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_toEndOf="@+id/cb_semi_guider"
-                                    android:visibility="invisible"/>
+                                    android:layout_height="wrap_content"/>
 
-                            <CheckBox
-                                    android:id="@+id/cb_translator"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@+id/cb_guider"
-                                    android:layout_toEndOf="@+id/cb_semi_guider"
-                                    android:visibility="invisible"/>
 
                         </RelativeLayout>
                     </RelativeLayout>
@@ -741,9 +767,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_below="@id/btn_setting_txt_skillP"
-                                android:layout_marginStart="@dimen/padding_24dp"
+                                android:layout_marginStart="@dimen/size_10_dp"
                                 android:layout_marginTop="@dimen/padding_16dp"
-                                android:layout_marginEnd="@dimen/padding_24dp"/>
+                                android:layout_marginEnd="@dimen/size_10_dp"/>
 
                     </RelativeLayout>
 

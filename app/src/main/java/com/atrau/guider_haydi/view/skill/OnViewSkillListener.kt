@@ -8,6 +8,6 @@ interface OnViewSkillListener {
 
     fun getSkillSuccess(skills: ArrayList<Skill>)
     fun getSkillFaile()
-    fun getMySkill(arrSkill: ArrayList<Skill>)
+    fun getMySkill(arrSkill: ArrayList<Skill>?)
 
 }

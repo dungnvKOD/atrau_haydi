@@ -16,7 +16,7 @@ class NewTripModel(val onNewTripListener: NewTripListener) {
     companion object {
         val TAG = "NewTripModel"
 
-        val TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImJhZGEiLCJwaG9uZSI6IjA5ODM3MzI4MDYiLCJpYXQiOjE1NTExMDUyODUsImV4cCI6MTU1MzY5NzI4NX0.aFZ8EZDzbsd_X8NhoYdGDGLBC5fLfSwTAJe8yiZYcxw"
+//        val TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImJhZGEiLCJwaG9uZSI6IjA5ODM3MzI4MDYiLCJpYXQiOjE1NTExMDUyODUsImV4cCI6MTU1MzY5NzI4NX0.aFZ8EZDzbsd_X8NhoYdGDGLBC5fLfSwTAJe8yiZYcxw"
     }
 
     fun getMerchant(status: String) {

@@ -19,7 +19,7 @@ class LoginFModel(val loginFListener: LoginFListener) {
 
     fun login(phone: String, password: String) {
 
-
+        Log.d(TAG, "lol   ")
         val call: Call<ResponseBody> = Client.getService()!!.postLogin(phone, password)
 
         call.enqueue(object : Callback<ResponseBody> {
@@ -84,15 +84,15 @@ class LoginFModel(val loginFListener: LoginFListener) {
                     val metro = jsonObject.getString("metro")
                     val area = jsonObject.getString("area")
                     loginFListener.getGeoSuccess(
-                            country,
-                            region,
-                            eu,
-                            timezone,
-                            city,
-                            lat,
-                            lon,
-                            metro,
-                            area
+                        country,
+                        region,
+                        eu,
+                        timezone,
+                        city,
+                        lat,
+                        lon,
+                        metro,
+                        area
                     )
 
                     Log.d(TAG, "dung ok...$country \n $region \n $eu \n $timezone \n $city \n $lat")
@@ -107,27 +107,24 @@ class LoginFModel(val loginFListener: LoginFListener) {
 
     fun getImage() {
         val call: Call<ResponseBody> = Client.getService()!!.getImage()
-
         call.enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 loginFListener.loginFale("loi...")
+
             }
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
 
                 if (response.code() == 200) { //thanh cong
-                    Log.d(TAG, "IMAGE  ...${response.body()!!.string()}")
-//                    val obj = JSONObject(response.body()!!.string())
-//                    val data = obj.getJSONObject("data")
-//                    val banner = data.getString("banner")
-//                    loginFListener.getImageSuccess(banner)
+//                    Log.d(TAG, "IMAGE  ...${response.body()!!.string()}")
+                    val obj = JSONObject(response.body()!!.string())
+                    val data = obj.getJSONObject("data")
+                    val banner = data.getString("banner")
+                    loginFListener.getImageSuccess(banner)
 //                } else { //that bai
 
                 }
             }
         })
-
     }
-
-
 }

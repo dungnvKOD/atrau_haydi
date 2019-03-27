@@ -41,10 +41,14 @@ class PaymentAdapter(val context: Context, val payments: ArrayList<Payment>) :
         holder.txt_notification_payment.text = payment.message
         if (payment.status == 1) {
             Log.d(TAG, "1....")
-            holder.btn_status_payment.setBackgroundResource(R.drawable.shape_btn_wating)
-        } else {
+            holder.btn_status_payment.text = "Thành công"
+            holder.btn_status_payment.setBackgroundResource(R.drawable.shape_btn_finish)
+        } else if (payment.status == 2) {
             holder.btn_status_payment.setBackgroundResource(R.drawable.shape_buttom_red)
-            holder.btn_status_payment.text = "Thất bại"
+            holder.btn_status_payment.text = "Từ chối"
+        } else if (payment.status == 0) {
+            holder.btn_status_payment.text = "Chờ xác nhận"
+            holder.btn_status_payment.setBackgroundResource(R.drawable.shape_btn_wating)
         }
         holder.txt_request_payment.text = payment.price.toString()
     }

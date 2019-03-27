@@ -36,8 +36,8 @@ class LoginFragment : Fragment(), View.OnClickListener,
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login, container, false)
@@ -59,9 +59,9 @@ class LoginFragment : Fragment(), View.OnClickListener,
 
         if (loginFPresenter.getStatus() == true) {
             loginFPresenter.rememberUser(
-                    edt_phone_login.text.toString().trim(),
-                    edt_password_login.text.toString().trim(),
-                    true
+                edt_phone_login.text.toString().trim(),
+                edt_password_login.text.toString().trim(),
+                true
             )
             check_box_login.isChecked = true
 
@@ -99,11 +99,6 @@ class LoginFragment : Fragment(), View.OnClickListener,
                 } else {
                     loginFPresenter.rememberUser(phone, password, false)
                 }
-                //TODO đang test...
-//                val intent: Intent = Intent((activity), HomeActivity::class.java)
-//                startActivity(intent)
-//                (activity as MainActivity).finish()
-
             }
 
             R.id.btn_register_login -> {
@@ -155,8 +150,7 @@ class LoginFragment : Fragment(), View.OnClickListener,
     }
 
     override fun loginFale(message: String) {
-        //TODO...
-//        (activity as MainActivity).toast("api$message")
+        (activity as MainActivity).toast("api$message")
 
     }
 
@@ -188,15 +182,15 @@ class LoginFragment : Fragment(), View.OnClickListener,
     //lay vi tri
 
     override fun getGeoSuccess(
-            country: String,
-            region: String,
-            eu: String,
-            timezone: String,
-            city: String,
-            lat: Double,
-            lon: Double,
-            metro: String,
-            area: String
+        country: String,
+        region: String,
+        eu: String,
+        timezone: String,
+        city: String,
+        lat: Double,
+        lon: Double,
+        metro: String,
+        area: String
     ) {
         //TODO cho nay phai add vao vieuregister
         //
@@ -217,10 +211,11 @@ class LoginFragment : Fragment(), View.OnClickListener,
 
     override fun getImageSuccess(banner: String) {
         Glide.with(activity!!)
-                .load(banner)
-                .into(img_title)
+            .load(banner)
+            .into(img_title)
+        (activity as MainActivity).linkSetting = banner
 
-        Log.d(TAG,banner+" dung")
+        Log.d(TAG, banner + " dung")
     }
 
 

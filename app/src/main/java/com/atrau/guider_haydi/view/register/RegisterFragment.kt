@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import com.atrau.guider_haydi.view.MainActivity
 import com.atrau.guider_haydi.App
 import com.atrau.guider_haydi.R
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_register.*
 
@@ -29,8 +30,10 @@ class RegisterFragment : Fragment(), View.OnClickListener, RegisterViewFListener
     }
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_register, container, false)
     }
@@ -42,6 +45,8 @@ class RegisterFragment : Fragment(), View.OnClickListener, RegisterViewFListener
     }
 
     private fun init() {
+
+        Glide.with(activity!!).load((activity as MainActivity).linkSetting).into(img_title_register)
 
         txt_code_phone.text = "+${(activity as MainActivity).area}"
         registerFPresenter.countries()
@@ -64,7 +69,12 @@ class RegisterFragment : Fragment(), View.OnClickListener, RegisterViewFListener
                 val name: String = edt_name_register.text.toString().trim()
 
 //                val phone: String = (activity as MainActivity).region + edt_phone_register.text.toString().trim()
-                val phone: String = edt_phone_register.text.toString().trim()
+                var phone: String = "0" + edt_phone_register.text.toString().trim()
+                if (phone.substring(0, 1) != "0") {
+                    phone = "0" + phone
+                } else {
+                    edt_phone_register.error = "Bỏ số đầu tiên"
+                }
 
                 val password: String = edt_password_register.text.toString().trim()
                 val email: String = edt_email_register.text.toString().trim()
@@ -98,9 +108,9 @@ class RegisterFragment : Fragment(), View.OnClickListener, RegisterViewFListener
 
                 country_code = array[position][3]
                 Snackbar.make(
-                        view,
-                        " $item  $country_code",
-                        Snackbar.LENGTH_LONG
+                    view,
+                    " $item  $country_code",
+                    Snackbar.LENGTH_LONG
                 ).show()
             }
         }

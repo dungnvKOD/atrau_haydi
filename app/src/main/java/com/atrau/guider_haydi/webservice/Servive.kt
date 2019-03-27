@@ -78,14 +78,10 @@ interface Servive {
     ): Call<ResponseBody>
 
 
-    @GET("/order-guider/{order_id}")
+    @GET("/merchant/guider/orders/{order_id}")
     fun getDetailTrip(
         @Header("authorization") token: String,
-        @Path("order_id") order_id: String, @Query("payment_type") paymentType: String, @Query(
-            "status"
-        ) status: String, @Query(
-            "cancel_id"
-        ) cancelId: Int
+        @Path("order_id") order_id: String
     ): Call<ResponseBody>
 
 
