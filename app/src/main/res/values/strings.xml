@@ -54,4 +54,11 @@
     <string name="txt_view_diem_mong_muon_tham_quan">Điểm Mong Muốn tham quan</string>
     <string name="btn_tin_nhan">Nhắn tin</string>
     <string name="btn_tuc_hoi">Từ chối</string>
+
+    <!---->
+    <string name="now_time_range">now</string>
+    <string name="duration_minutes_shortest">%1$d m</string>
+    <string name="duration_hours_shortest">%1$d h</string>
+    <string name="duration_days_shortest">%1$d d</string>
+    <string name="duration_week_shortest">%1$d w</string>
 </resources>

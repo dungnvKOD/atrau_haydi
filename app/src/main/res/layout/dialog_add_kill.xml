@@ -16,6 +16,7 @@
             android:text="Thêm kỹ năng"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/dim_foreground_material_light"
+
             android:textSize="20sp"/>
 
     <View
@@ -25,6 +26,12 @@
             android:layout_below="@+id/rateHeader"
             android:layout_marginTop="5dp"
             android:background="@color/green"/>
+    <ImageView
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/ratingsBar"
+            android:id="@+id/icon_skill"
+            android:layout_margin="@dimen/size_4_dp"
+            android:layout_width="40dp" android:layout_height="40dp"/>
 
     <RatingBar
             android:id="@+id/ratingsBar"
@@ -37,21 +44,23 @@
             android:rating="2"
             android:theme="@style/RatingBar"/> <!-- Số lượng ngôi sao là 7 -->
 
-    <com.jaredrummler.materialspinner.MaterialSpinner
 
-            android:id="@+id/spinnerDL"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ratingsBar"
-            android:layout_marginStart="46dp"
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginRight="150dp"
             android:layout_marginTop="1dp"
             android:layout_marginEnd="46dp"
-            android:layout_marginBottom="@dimen/padding_16dp"/>
+            android:layout_marginStart="150dp"
+            android:id="@+id/rcv_icon_skill"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/icon_skill"
+            android:layout_marginBottom="@dimen/padding_16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/spinnerDL"
+            android:layout_below="@+id/rcv_icon_skill"
             android:layout_gravity="center"
             android:weightSum="2">
 

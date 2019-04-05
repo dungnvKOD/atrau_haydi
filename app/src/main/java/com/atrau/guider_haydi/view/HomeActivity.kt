@@ -20,15 +20,25 @@ import com.atrau.guider_haydi.view.profile.ProfileFragment
 import com.google.android.gms.tasks.OnCompleteListener
 import android.app.NotificationManager
 import android.app.NotificationChannel
+import com.atrau.guider_haydi.App
 import com.atrau.guider_haydi.R
+import com.atrau.guider_haydi.conmon.Constant
 import com.atrau.guider_haydi.dto.Campaign
+import com.atrau.guider_haydi.dto.GuideDto
 import com.atrau.guider_haydi.view.message_group.MessageGroupFragment
+import com.atrau.guider_haydi.view.profile.ProfileModel
+import com.atrau.guider_haydi.webservice.Client
 
 import com.google.firebase.iid.FirebaseInstanceId
 //import com.google.firebase.FirebaseApp
 //import com.google.firebase.iid.FirebaseInstanceId
 
 import kotlinx.android.synthetic.main.activity_home.*
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class HomeActivity : AppCompatActivity() {
 //    var arrSkill: ArrayList<Skill> = ArrayList()
@@ -39,6 +49,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     lateinit var campaign: Campaign
+    private lateinit var newTripFragment: NewTripFragment
+
 
     private lateinit var onImageListener: OnImageListener
     var arrSkill: ArrayList<Skill>? = ArrayList()
@@ -46,20 +58,15 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
+        newTripFragment = NewTripFragment.newFragment
+        addOrShowFragment(newTripFragment, R.id.frame_home, false, false)
         init()
+        Log.d(TAG, "onCreate...")
+
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        if (!isAppRunning){
-//            popbacktask()
-//            addOrShowFragment(NewTripFragment.newFragment, R.id.frame_home, false, false)
-//        }
-//
-//    }
-
     private fun init() {
+
 
         FirebaseInstanceId.getInstance().instanceId
             .addOnCompleteListener(OnCompleteListener { task ->
@@ -79,7 +86,6 @@ class HomeActivity : AppCompatActivity() {
 
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
 
         val channelId = "1"
         val channel2 = "2"
@@ -112,9 +118,6 @@ class HomeActivity : AppCompatActivity() {
         }
 
 
-        addOrShowFragment(NewTripFragment.newFragment, R.id.frame_home, false, false)
-
-
         navigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.menu_trip -> {
@@ -140,6 +143,9 @@ class HomeActivity : AppCompatActivity() {
             }
             false
         }
+
+//        App.getMyInsatnce().idUser = getProfile()
+        getProfile()
     }
 
 
@@ -167,10 +173,120 @@ class HomeActivity : AppCompatActivity() {
         return Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
-    /**
-     *  fragment.....
-     *
-     */
+    override fun onResume() {
+        super.onResume()
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "onStart...")
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+//        finish()
+        Log.d(TAG, "onPause...")
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        newTripFragment.popBackTask()
+        supportFragmentManager.beginTransaction().remove(newTripFragment).commit()
+        Log.d(TAG, "onDestroy...")
+    }
+
+    fun getProfile() {
+        val call: Call<ResponseBody> = Client.getService()!!.getProfile(App.getMyInsatnce().token)
+        Log.d(ProfileModel.TAG, App.getMyInsatnce().token)
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+
+                if (response.code() == 200) { //thanh cong
+                    val jsonObject = JSONObject(response.body()!!.string())
+                    val jsonObj = jsonObject.getJSONObject("data")
+
+                    val id = jsonObj.getString("id")
+                    val name = jsonObj.getString("name")
+                    val phone = jsonObj.getString("phone")
+                    val facebookId = jsonObj.getString("facebook_id")
+                    val password = jsonObj.getString("password")
+                    val source = jsonObj.getString("source")
+                    val email = jsonObj.getString("email")
+                    val subPhone = jsonObj.getString("sub_phone")
+                    val address = jsonObj.getString("address")
+                    val countryCode = jsonObj.getString("country_code")
+                    val level = jsonObj.getString("level")
+                    val status = jsonObj.getString("status")
+                    val type = jsonObj.getString("type")
+                    val rate = jsonObj.getString("rate")
+                    val voteTotal = jsonObj.getString("vote_total")
+                    val orderTotal = jsonObj.getString("order_total")
+                    val languages = jsonObj.getString("languages")
+                    val quote = jsonObj.getString("quote")
+                    val myValue = jsonObj.getString("my_value")
+                    val description = jsonObj.getString("description")
+                    var price = jsonObj.getString("price")
+                    val priceUnit = jsonObj.getString("unit")
+                    val lat = jsonObj.getString("lat")
+                    val lon = jsonObj.getString("lon")
+                    val cover = jsonObj.getString("cover")
+                    val avatar = jsonObj.getString("avatar")
+                    val createdAt = jsonObj.getString("created_at")
+                    val updatedAt = jsonObj.getString("updated_at")
+                    val jobs = jsonObj.getString("jobs")
+                    if (price == "null" || price == "" || price == null) {
+                        price = "0"
+                    }
+                    val guideDto = GuideDto(
+                        id,
+                        name,
+                        phone,
+                        facebookId,
+                        password,
+                        source,
+                        email,
+                        subPhone,
+                        address,
+                        countryCode,
+                        level,
+                        status.toInt(),
+                        type,
+                        rate,
+                        voteTotal.toInt(),
+                        orderTotal.toInt(),
+                        languages,
+                        quote,
+                        myValue,
+                        description,
+                        price.toInt(),
+                        priceUnit,
+                        lat,
+                        lon,
+                        cover,
+                        avatar,
+                        createdAt,
+                        updatedAt, jobs
+                    )
+
+                    App.getMyInsatnce().guideDto = guideDto
+
+
+                } else { //that bai
+                    val jsonObject = JSONObject(response.errorBody()!!.string())
+                    val jsonObj = jsonObject.getJSONObject("data")
+                    val message = jsonObj.getString("message")
+                }
+            }
+        })
+    }
+
 
     fun addOrShowFragment(f: Fragment, rootId: Int, b: Boolean, anim: Boolean) {
         val tag = f.javaClass.name

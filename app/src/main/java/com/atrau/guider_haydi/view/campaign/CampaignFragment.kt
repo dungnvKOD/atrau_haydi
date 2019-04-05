@@ -36,6 +36,11 @@ class CampaignFragment : Fragment(), CampaignViewListener, CampaignAdapter.Payme
 
     private lateinit var campaignPresenter: CampaignPresenter
 
+    override fun onStart() {
+        super.onStart()
+        campaigns.clear()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -1,6 +1,5 @@
 package com.atrau.guider_haydi.view.skill
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -24,7 +23,6 @@ class SkillFragment : Fragment(),
     OnViewSkillListener, View.OnClickListener, MyAllSkillAdapter.OnMySkillAdapter {
 
 
-    private lateinit var dialog: AddSkill
     private val skillPresenter = SkillPresenter(this)
     private var skills: ArrayList<Skill> = ArrayList()
     private lateinit var myAllSkillAdapter: MyAllSkillAdapter
@@ -110,7 +108,7 @@ class SkillFragment : Fragment(),
                             signSkill.clear()
                         }
                         signSkill = arrTemp
-                        //truwowsc khi bat dialog thi phai kiem tra xem no co khac 0 hay o
+
                         if (signSkill.size == 0) {
                             Toast.makeText(activity, "Đã đủ kỹ năng", Toast.LENGTH_LONG).show()
                             return
@@ -120,23 +118,10 @@ class SkillFragment : Fragment(),
                         signSkill = skills
                     }
 
-//                    Log.d(TAG, signSkill.size.toString() + "..." + myAllSkillAdapter.getHereSkills().size)
+                    val skill=Skill(skills[0].id,skills[0].name,2.0,skills[0].icon,skills[0].desc)
+                    Log.d(TAG, " ......................${skills[0].icon}")
+                    myAllSkillAdapter.setSkill(skill,skills)
 
-                    //lasy du lueu xong thi goi dialog
-
-                    dialog = AddSkill(activity as HomeActivity,
-                        skills,
-                        @SuppressLint("ValidFragment")
-                        object : AddSkill.DialogListener {
-                            override fun onSkillListener(skill: Skill) {
-                                // cho nay se set lai skill cho no
-//                                Toast.makeText(context, skill.name, Toast.LENGTH_LONG).show()
-
-                                dialog.cancel()
-                                myAllSkillAdapter.setSkill(skill)
-                            }
-                        })
-                    dialog.show()
                 }
             }
 
@@ -182,12 +167,10 @@ class SkillFragment : Fragment(),
     }
 
     override fun getMySkill(arrSkill: ArrayList<Skill>?) {
-        Log.d(TAG, "size=" + arrSkill!!.size)
-//        if (arrSkill.size != null||arrSkill.size !=0) {
         (activity as HomeActivity).arrSkill!!.clear()
         (activity as HomeActivity).arrSkill = arrSkill
-//        }
         onCkickSkillListener.onClickSkill(skills)
+
         if (check == "ADD") {
             (activity as HomeActivity).popbacktask()
             check = ""
@@ -195,8 +178,7 @@ class SkillFragment : Fragment(),
     }
 
     override fun getSkillSuccess(skills: ArrayList<Skill>) {
-        Log.d(TAG, " chay vao day may lan  size=... ${skills.size}")
-//        this.skills.clear()
+        Log.d(TAG, " chay vao day may lan  size=... ${skills[0].icon}")
         this.skills = skills
         Log.d(TAG, "size update = ${this.skills.size}")
     }

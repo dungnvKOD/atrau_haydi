@@ -29,6 +29,12 @@ class RegisterFragment : Fragment(), View.OnClickListener, RegisterViewFListener
         val newFragment = RegisterFragment()
     }
 
+    override fun onStart() {
+        super.onStart()
+
+
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +54,7 @@ class RegisterFragment : Fragment(), View.OnClickListener, RegisterViewFListener
 
         Glide.with(activity!!).load((activity as MainActivity).linkSetting).into(img_title_register)
 
-        txt_code_phone.text = "+${(activity as MainActivity).area}"
+//        txt_code_phone.text = "+${(activity as MainActivity).area}"
         registerFPresenter.countries()
         btn_back_login.setOnClickListener(this)
         btn_register.setOnClickListener(this)
@@ -69,13 +75,23 @@ class RegisterFragment : Fragment(), View.OnClickListener, RegisterViewFListener
                 val name: String = edt_name_register.text.toString().trim()
 
 //                val phone: String = (activity as MainActivity).region + edt_phone_register.text.toString().trim()
-                var phone: String = "0" + edt_phone_register.text.toString().trim()
-                if (phone.substring(0, 1) != "0") {
-                    phone = "0" + phone
-                } else {
-                    edt_phone_register.error = "Bỏ số đầu tiên"
-                }
+                var phone: String = edt_phone_register.text.toString().trim()
+//                if (phone.substring(0, 1) != "0") {
+//                    phone = "0" + phone
+//                } else {
+//                    edt_phone_register.error = "Bỏ số đầu tiên"
+//                }
+                var unit: String = ""
 
+
+
+                if (cb_usd.isChecked) {
+
+                    unit = "USD"
+                } else {
+                    unit = "VND"
+
+                }
                 val password: String = edt_password_register.text.toString().trim()
                 val email: String = edt_email_register.text.toString().trim()
                 val address: String = edt_address.text.toString().trim()
@@ -83,7 +99,7 @@ class RegisterFragment : Fragment(), View.OnClickListener, RegisterViewFListener
                 val lon: String = App.getMyInsatnce().lon.toString()
                 if (check_box_login.isChecked) {
                     //TODO...
-                    registerFPresenter.register(name, phone, password, email, address, country_code!!, lat, lon)
+                    registerFPresenter.register(name, phone, password, email, address, country_code!!, lat, lon, unit)
                 } else {
                     (activity as MainActivity).toast("Bạn đã đồng ý với chính sách của HAYDI")
                 }
@@ -123,7 +139,7 @@ class RegisterFragment : Fragment(), View.OnClickListener, RegisterViewFListener
         spinner(array)
         for (i in 0 until array.size) {
             if ((activity as MainActivity).code != null && array[i][3] == (activity as MainActivity).code) {
-                txt_code_phone.text = array[i][4]
+//                txt_code_phone.text = array[i][4]
                 break
             }
         }

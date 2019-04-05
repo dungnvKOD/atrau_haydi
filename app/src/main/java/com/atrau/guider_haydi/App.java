@@ -1,6 +1,9 @@
 package com.atrau.guider_haydi;
 
 import android.app.Application;
+import com.atrau.guider_haydi.dto.Conversations;
+import com.atrau.guider_haydi.dto.Friends;
+import com.atrau.guider_haydi.dto.GuideDto;
 
 public class App extends Application {
 
@@ -12,6 +15,11 @@ public class App extends Application {
     private int idHost;
     private int idTrip;
     private String tripStatus;
+    private boolean checkNotifi;
+    private Conversations conversations;
+    private GuideDto guideDto;
+    private Friends friends;
+    private String checkMessage;
 
     @Override
     public void onCreate() {
@@ -26,6 +34,47 @@ public class App extends Application {
             insatnce = new App();
         }
         return insatnce;
+    }
+
+    public GuideDto getGuideDto() {
+        return guideDto;
+    }
+
+    public void setGuideDto(GuideDto guideDto) {
+        this.guideDto = guideDto;
+    }
+
+    public String getCheckMessage() {
+        return checkMessage;
+    }
+
+    public void setCheckMessage(String checkMessage) {
+        this.checkMessage = checkMessage;
+    }
+
+    public Friends getFriends() {
+        return friends;
+    }
+
+    public void setFriends(Friends friends) {
+        this.friends = friends;
+    }
+
+
+    public Conversations getConversations() {
+        return conversations;
+    }
+
+    public void setConversations(Conversations conversations) {
+        this.conversations = conversations;
+    }
+
+    public boolean isCheckNotifi() {
+        return checkNotifi;
+    }
+
+    public void setCheckNotifi(boolean checkNotifi) {
+        this.checkNotifi = checkNotifi;
     }
 
     public String getTripStatus() {

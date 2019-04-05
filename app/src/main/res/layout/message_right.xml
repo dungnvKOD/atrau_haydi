@@ -1,62 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_marginTop="8dp"
+                android:id="@+id/layout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:orientation="horizontal">
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp">
 
-    <RelativeLayout
-            android:layout_width="300dp"
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageView2"
+            android:layout_width="@dimen/size_10_dp"
+            android:visibility="invisible"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/ic_sent"/>
+
+    <TextView
+            android:textSize="13sp"
+            android:id="@+id/txtItemMessageRight"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true">
+            android:layout_marginTop="10dp"
+            android:background="@drawable/message_right"
+            android:padding="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@id/imageView2"
+            android:layout_marginEnd="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginStart="20dp"
+            android:text="a"
+            android:textColor="@color/black"/>
 
-        <RelativeLayout
-                android:id="@+id/layoutItemMessageRight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/imgMyAvatarRight"
-                android:background="@drawable/message_right"
-                android:padding="8dp">
+    <TextView
+            android:layout_alignStart="@id/txtItemMessageRight"
+            android:layout_below="@id/txtItemMessageRight"
+            android:id="@+id/txtTimeMessageRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="sdsds"
+            android:textSize="10sp"/>
 
-            <TextView
-                    android:id="@+id/txtItemMessageRight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="nguyen van dung"
-                  />
-
-            <ImageView
-                    android:id="@+id/imgItemImageRight"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_below="@id/txtItemMessageRight"
-                    android:layout_marginTop="4dp"
-                    android:src="@drawable/mau"/>
-        </RelativeLayout>
-
-        <de.hdodenhof.circleimageview.CircleImageView
-
-                android:id="@+id/imgMyAvatarRight"
-                android:layout_width="40dp"
-                android:layout_height="50dp"
-                android:layout_alignBottom="@id/layoutItemMessageRight"
-                android:paddingTop="4dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="4dp"
-                android:src="@drawable/mau"/>
-
-        <TextView
-                android:id="@+id/txtTimeMessageRight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/layoutItemMessageRight"
-                android:layout_alignLeft="@id/layoutItemMessageRight"
-                android:layout_marginLeft="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="2222"
-                android:textColor="#000000"
-                android:textSize="10sp"/>
-
-    </RelativeLayout>
 </RelativeLayout>
+        <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="4dp"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<RelativeLayout-->
+        <!--android:layout_width="300dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true">-->
+
+        <!--<RelativeLayout-->
+        <!--android:layout_marginRight="@dimen/size_10_dp"-->
+        <!--android:layout_alignParentEnd="true"-->
+
+        <!--android:id="@+id/layoutItemMessageRight"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@drawable/message_right"-->
+        <!--android:padding="8dp">-->
+
+        <!--<TextView-->
+        <!--android:textSize="13sp"-->
+        <!--android:textColor="@color/black"-->
+        <!--android:id="@+id/txtItemMessageRight"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--/>-->
+
+        <!--<ImageView-->
+        <!--android:visibility="gone"-->
+        <!--android:id="@+id/imgItemImageRight"-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_below="@id/txtItemMessageRight"-->
+        <!--android:layout_marginTop="4dp"-->
+        <!--android:src="@drawable/mau"/>-->
+        <!--</RelativeLayout>-->
+
+        <!--<TextView-->
+        <!--android:visibility="gone"-->
+        <!--android:id="@+id/txtTimeMessageRight"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/layoutItemMessageRight"-->
+        <!--android:layout_alignStart="@id/layoutItemMessageRight"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:text="dd"-->
+        <!--android:textSize="10sp"/>-->
+
+        <!--</RelativeLayout>-->
+        <!--</RelativeLayout>-->

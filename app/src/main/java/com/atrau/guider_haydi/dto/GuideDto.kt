@@ -135,7 +135,9 @@ class GuideDto {
         price: Int?,
         priceUnit: String?,
         cover: String?,
-        avatar: String?
+        avatar: String?,
+        languages: String?
+
     ) {
 
         this.email = email
@@ -148,6 +150,7 @@ class GuideDto {
         this.priceUnit = priceUnit
         this.cover = cover
         this.avatar = avatar
+        this.languages = languages
 
     }
 

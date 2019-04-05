@@ -21,14 +21,14 @@ class ProfileModel(val onProfileListenner: OnProfileListenner) {
 
     fun getProfile(token: String, check: String) {
         val call: Call<ResponseBody> = Client.getService()!!.getProfile(App.getMyInsatnce().token)
-        Log.d(TAG, App.getMyInsatnce().token)
+//        Log.d(TAG, App.getMyInsatnce().token)
         call.enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
 
             }
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-
+//                Log.d(TAG, response.body()!!.string())
                 if (response.code() == 200) { //thanh cong
                     val jsonObject = JSONObject(response.body()!!.string())
                     val jsonObj = jsonObject.getJSONObject("data")
@@ -138,6 +138,8 @@ class ProfileModel(val onProfileListenner: OnProfileListenner) {
     }
 
     fun putProfile(guideDto: GuideDto, type: String) {
+
+        Log.d(TAG, "dung..." + guideDto.languages)
         //TODO
         val call: Call<ResponseBody> =
             Client.getService()!!.putProfile(App.getMyInsatnce().token, guideDto)
@@ -149,15 +151,18 @@ class ProfileModel(val onProfileListenner: OnProfileListenner) {
 //                Log.d(TAG, "putProfile... Success")
                 if (response.code() == 200) {
                     //thành cong
+                    Log.d(TAG, "putProfile... Success")
                     getProfile(App.getMyInsatnce().token, type)
                 } else {
                     val jsonObject = JSONObject(response.errorBody()!!.string())
-                    val message = jsonObject.getString("message")
-//                    Log.d(TAG, "dung123 true" + response.errorBody()!!.string())
+//                    val message = jsonObject.getString("message")
+                    Log.d(TAG, "dung123 true" + response.errorBody()!!.string())
+                    Log.d(TAG, "putProfile... Failure")
                 }
             }
         })
     }
+
 
     fun getSkill(token: String) {
 
@@ -170,6 +175,7 @@ class ProfileModel(val onProfileListenner: OnProfileListenner) {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
 
                 if (response.code() == 200) { //thanh cong
+//                    Log.d(TAG, "${response.body()!!.string()}...")    D/ProfileModel: {"error":false,"status":200,"data":[{"id":1,"name":"Lái xe","level":2},{"id":3,"name":"Đặt vé tham quan","level":4},{"id":4,"name":"Đặt vé tàu","level":1}]}...
                     val jsonObject = JSONObject(response.body()!!.string())
                     val jsonArr = jsonObject.getJSONArray("data")
                     val skills: ArrayList<Skill> = ArrayList()
@@ -179,7 +185,10 @@ class ProfileModel(val onProfileListenner: OnProfileListenner) {
                         val id: Int = skillJson!!.getInt("id")
                         val name: String = skillJson.getString("name")
                         val level: Double = skillJson.getDouble("level")
-                        val skill: Skill = Skill(id, name, level)
+                        val icon = skillJson.getString("icon")
+                        val desc = skillJson.getString("desc")
+                        val skill: Skill = Skill(id, name, level, icon, desc)
+//                        val skill: Skill = Skill(id, name, level)
                         skills.add(skill)
 
                     }
@@ -200,13 +209,10 @@ class ProfileModel(val onProfileListenner: OnProfileListenner) {
         call.enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
 
-
             }
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.code() == 200) {
-
-//                    Log.d(TAG, response.body()!!.string())
 
                     val jsonOBJ = JSONObject(response.body()!!.string())
                     val jsonArr = jsonOBJ.getJSONArray("data")
@@ -230,6 +236,8 @@ class ProfileModel(val onProfileListenner: OnProfileListenner) {
 
     fun putJob(hashMap: HashMap<String, ArrayList<Int>>, jobType: String) {
         Log.d(TAG, "$hashMap  ...dung")
+
+
         val call: Call<ResponseBody> = Client.getService()!!.putJob(App.getMyInsatnce().token, hashMap)
         call.enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
@@ -245,8 +253,6 @@ class ProfileModel(val onProfileListenner: OnProfileListenner) {
                 }
             }
         })
-
     }
-
 
 }

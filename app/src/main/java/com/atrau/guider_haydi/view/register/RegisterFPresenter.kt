@@ -11,14 +11,15 @@ class RegisterFPresenter(private val onRegisterViewFListener: RegisterViewFListe
     private val registerFModel = RegisterFModel(this)
 
     fun register(
-            name: String,
-            phone: String,
-            password: String,
-            email: String,
-            address: String,
-            country_code: String,
-            lat: String,
-            lon: String
+        name: String,
+        phone: String,
+        password: String,
+        email: String,
+        address: String,
+        country_code: String,
+        lat: String,
+        lon: String,
+        unit: String
     ) {
 
         val emailType = email.matches(Constant.EMAIL_TYPE.toRegex())
@@ -58,9 +59,11 @@ class RegisterFPresenter(private val onRegisterViewFListener: RegisterViewFListe
             onRegisterViewFListener.phoneIsEmpty()
             return
         }
-        if (phone.length in 9..12) {
+
+
+        if (phone.length in 10..12) {
             //TODO Số điện thoại hợp lệ
-            registerFModel.register(name, phone, password, email, address, country_code, lat, lon)
+            registerFModel.register(name, phone, password, email, address, country_code, lat, lon, unit)
             return
 
         } else {

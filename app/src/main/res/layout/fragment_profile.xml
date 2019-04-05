@@ -5,6 +5,8 @@
                                                      android:layout_width="match_parent"
                                                      android:layout_height="match_parent"
                                                      android:background="@color/white"
+                                                     android:focusable="true"
+                                                     android:clickable="true"
                                                      android:fitsSystemWindows="false">
 
 
@@ -21,7 +23,6 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
-
                     android:id="@+id/img_cover"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -41,13 +42,14 @@
                 <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
 
                     <TextView
+
                             android:id="@+id/txt_tool_bar"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/padding_16dp"
                             android:gravity="center"
-                            android:text="HỒ SƠ"
-                            android:textAllCaps="true"
+                            android:text="Hồ sơ"
+                            android:textAllCaps="false"
                             android:textColor="@color/white"
                             android:textSize="16sp"
                             android:textStyle="bold"/>
@@ -372,7 +374,7 @@
                                 android:layout_marginRight="8dp"
                                 android:text="ĐIỀU TÔI MANG LẠI "
                                 android:textColor="@color/black"
-                                android:textStyle="normal"/>
+                                android:textStyle="bold"/>
 
                         <TextView
                                 android:id="@+id/btn_setting_txt_my_valueP"
@@ -464,7 +466,7 @@
                                 android:layout_marginRight="8dp"
                                 android:text="GIỚI THIỆU BẢN THÂN "
                                 android:textColor="@color/black"
-                                android:textStyle="normal"/>
+                                android:textStyle="bold"/>
 
                         <TextView
                                 android:id="@+id/btn_setting_txt_descriptionP"
@@ -554,7 +556,7 @@
                                 android:layout_marginRight="8dp"
                                 android:text="NGÔN NGỮ"
                                 android:textColor="@color/black"
-                                android:textStyle="normal"/>
+                                android:textStyle="bold"/>
 
                         <TextView
                                 android:id="@+id/btn_setting_txt_languagesP"
@@ -579,26 +581,70 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_marginRight="8dp"/>
 
-                        <EditText
-                                android:id="@+id/edt_write_languagesP"
-                                style="@style/TextAppearance.AppCompat"
-                                android:layout_width="match_parent"
-                                android:layout_height="100dp"
-                                android:layout_below="@id/txt_languagesP"
-                                android:layout_marginStart="@dimen/size_4_dp"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginTop="8dp"
-                                android:layout_marginEnd="8dp"
-                                android:layout_marginRight="8dp"
-                                android:background="@drawable/shape_bg_edittext"
-                                android:focusable="true"
-                                android:focusableInTouchMode="true"
-                                android:gravity="top|left"
-                                android:inputType="textMultiLine"
-                                android:padding="@dimen/size_4_dp"
-                                android:scrollbars="vertical"
+                        <LinearLayout
+                                android:id="@+id/layout_1_languagesP"
                                 android:visibility="gone"
-                                tools:ignore="RtlHardcoded"/>
+                                android:layout_below="@+id/txt_languagesP"
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                <CheckBox
+                                        android:layout_weight="1"
+                                        android:text="vietnamese"
+                                        android:id="@+id/cb_vietnamese"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+                                <CheckBox
+                                        android:layout_weight="1"
+                                        android:text="english"
+                                        android:id="@+id/cb_english"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+
+                                <CheckBox
+                                        android:layout_weight="1"
+                                        android:text="french"
+                                        android:id="@+id/cb_french"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                <CheckBox
+                                        android:layout_weight="1"
+                                        android:text="chinese"
+                                        android:id="@+id/cb_chinese"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+                                <CheckBox
+                                        android:layout_weight="1"
+                                        android:text="japanese"
+                                        android:id="@+id/cb_japanese"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+
+                                <CheckBox
+                                        android:layout_weight="1"
+                                        android:text="spain"
+                                        android:id="@+id/cb_spain"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
                     </RelativeLayout>
 
 
@@ -642,7 +688,7 @@
                                 android:layout_marginRight="8dp"
                                 android:text="CÔNG VIỆC"
                                 android:textColor="@color/black"
-                                android:textStyle="normal"/>
+                                android:textStyle="bold"/>
 
                         <TextView
                                 android:id="@+id/btn_setting_txt_jobP"
@@ -657,15 +703,15 @@
                                 android:textColor="@color/brown"
                                 android:textStyle="bold"/>
 
-                        <TextView
-                                android:id="@+id/txt_write_jobP"
-                                style="@style/TextAppearance.AppCompat"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/btn_setting_txt_jobP"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginTop="8dp"
-                                android:layout_marginRight="8dp"/>
+                        <!--<TextView-->
+                        <!--android:id="@+id/txt_write_jobP"-->
+                        <!--style="@style/TextAppearance.AppCompat"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_below="@id/btn_setting_txt_jobP"-->
+                        <!--android:layout_marginLeft="8dp"-->
+                        <!--android:layout_marginTop="8dp"-->
+                        <!--android:layout_marginRight="8dp"/>-->
 
                         <RelativeLayout
                                 android:layout_width="match_parent"
@@ -674,41 +720,45 @@
                                 android:layout_marginStart="@dimen/size_4_dp"
                                 android:visibility="visible">
 
-                            <LinearLayout
-                                    android:id="@+id/layout_job_1"
-                                    android:orientation="horizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
-                                <Spinner
-                                        android:layout_weight="1"
-                                        android:id="@+id/sp_1"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"/>
-                                <Spinner
-                                        android:layout_weight="1"
-                                        android:id="@+id/sp_2"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"/>
+                            <!--<LinearLayout-->
+                            <!--android:id="@+id/layout_job_1"-->
+                            <!--android:orientation="horizontal"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content">-->
+                            <!--<TextView-->
+                            <!--android:background="@drawable/shape_input_text"-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:id="@+id/sp_1"-->
+                            <!--android:layout_width="0dp"-->
+                            <!--android:layout_height="wrap_content"/>-->
+                            <!--<TextView-->
+                            <!--android:background="@drawable/shape_input_text"-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:id="@+id/sp_2"-->
+                            <!--android:layout_width="0dp"-->
+                            <!--android:layout_height="wrap_content"/>-->
 
-                            </LinearLayout>
-                            <LinearLayout
-                                    android:layout_below="@+id/layout_job_1"
-                                    android:id="@+id/layout_job_2"
-                                    android:orientation="horizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
-                                <Spinner
-                                        android:layout_weight="1"
-                                        android:id="@+id/sp_3"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"/>
-                                <Spinner
-                                        android:layout_weight="1"
-                                        android:id="@+id/sp_4"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"/>
+                            <!--</LinearLayout>-->
+                            <!--<LinearLayout-->
+                            <!--android:layout_below="@+id/layout_job_1"-->
+                            <!--android:id="@+id/layout_job_2"-->
+                            <!--android:orientation="horizontal"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content">-->
+                            <!--<TextView-->
+                            <!--android:background="@drawable/shape_input_text"-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:id="@+id/sp_3"-->
+                            <!--android:layout_width="0dp"-->
+                            <!--android:layout_height="wrap_content"/>-->
+                            <!--<TextView-->
+                            <!--android:background="@drawable/shape_input_text"-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:id="@+id/sp_4"-->
+                            <!--android:layout_width="0dp"-->
+                            <!--android:layout_height="wrap_content"/>-->
 
-                            </LinearLayout>
+                            <!--</LinearLayout>-->
                             <TextView
                                     android:id="@+id/txt_get_job"
                                     android:layout_width="wrap_content"
@@ -745,7 +795,7 @@
                                 android:text="KỸ NĂNG"
                                 android:textAllCaps="false"
                                 android:textColor="@color/black"
-                                android:textStyle="normal"/>
+                                android:textStyle="bold"/>
 
                         <TextView
                                 android:id="@+id/btn_setting_txt_skillP"

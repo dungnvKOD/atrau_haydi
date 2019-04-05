@@ -1,12 +1,14 @@
 package com.atrau.guider_haydi.view.newtrip
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.atrau.guider_haydi.adapter.NewTripAdapter
@@ -19,10 +21,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.atrau.guider_haydi.App
 import com.atrau.guider_haydi.R
 import com.atrau.guider_haydi.adapter.EndlessRecyclerViewScrollListener
+import com.atrau.guider_haydi.util.MyUtils
 
 
 class NewTripFragment : Fragment(),
-    NewTripViewListener, NewTripAdapter.OnNewTripListener, View.OnClickListener {
+    NewTripViewListener, NewTripAdapter.OnNewTripListener, View.OnClickListener,
+    TimeBottomSheetFragment.OnClickListener {
+
 
     private lateinit var scrollListener: EndlessRecyclerViewScrollListener
     var itemNewTrips: ArrayList<ItemNewTrip>? = ArrayList()
@@ -30,6 +35,7 @@ class NewTripFragment : Fragment(),
     private var total: Int = 0
     private var limit: Int = 0
     private var status = ""
+    private lateinit var timeFragment: TimeBottomSheetFragment
 
 
     companion object {
@@ -73,9 +79,10 @@ class NewTripFragment : Fragment(),
 
     // KHỞI TẠO
     private fun init() {
+        timeFragment = TimeBottomSheetFragment.newFragment
+        timeFragment.setOnClickListener(this)
         val linearLayoutManager = LinearLayoutManager(activity)
         rcv_new_trip.layoutManager = linearLayoutManager
-
         rcv_new_trip.adapter = newTripAdapter
         newTripAdapter.setOnClickListener(this)
 
@@ -147,11 +154,21 @@ class NewTripFragment : Fragment(),
 
     }
 
+
+    fun popBackTask(){
+
+        MyUtils().hideKeyboard(activity!!)
+        (activity as HomeActivity).popbacktask()
+    }
+
     @SuppressLint("ResourceAsColor")
     override fun onClick(v: View?) {
         when (v!!.id) {
+
             R.id.txt_view_finish -> {
                 status = DONE
+                newTripAdapter.cleanItem()
+
                 txt_view_finish.setTextColor(this.resources.getColor(R.color.blule))
                 txt_wating.setTextColor(this.resources.getColor(R.color.black))
                 txt_view_cancel.setTextColor(this.resources.getColor(R.color.black))
@@ -160,6 +177,8 @@ class NewTripFragment : Fragment(),
             }
             R.id.txt_wating -> {
                 status = NEW
+                newTripAdapter.cleanItem()
+
                 txt_view_finish.setTextColor(this.resources.getColor(R.color.black))
                 txt_wating.setTextColor(this.resources.getColor(R.color.blule))
                 txt_view_cancel.setTextColor(this.resources.getColor(R.color.black))
@@ -169,6 +188,8 @@ class NewTripFragment : Fragment(),
 
             R.id.txt_view_cancel -> {
                 status = CANCEL
+                newTripAdapter.cleanItem()
+
                 txt_view_finish.setTextColor(this.resources.getColor(R.color.black))
                 txt_wating.setTextColor(this.resources.getColor(R.color.black))
                 txt_view_cancel.setTextColor(this.resources.getColor(R.color.blule))
@@ -233,6 +254,27 @@ class NewTripFragment : Fragment(),
         App.getMyInsatnce().tripStatus = tripStatus
         (activity as HomeActivity).addOrShowFragment(DetailTripFragment.newFragment, R.id.layout_kill, true, true)
 
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onClickTime(timeFrom: Long, timeTo: Long) {
+        newTripAdapter.cleanItem()
+        newTripPresenter.getAllMerchant(5, 0)
+        val newTripTime: ArrayList<ItemNewTrip> = ArrayList()
+        Log.d(TAG,itemNewTrips!!.size.toString())
+
+        for (i in 0 until itemNewTrips!!.size) {
+            if (MyUtils.dateToLong(itemNewTrips!![i].startDay!!) in timeFrom..timeTo) {
+                newTripAdapter.updateItem(itemNewTrips!![i])
+            }
+        }
+
+        timeFragment.dismiss()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+//        (activity as HomeActivity).popbacktask()
     }
 }
 

@@ -11,36 +11,61 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="@dimen/size_4_dp">
+        <RelativeLayout
 
-        <TextView
-
-                android:id="@+id/txt_name_skill_add"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginEnd="@dimen/padding_16dp"
                 android:layout_weight="2"
-                android:gravity="center"
-                android:maxLines="1"
-                android:padding="@dimen/size_4_dp"
-                android:paddingTop="@dimen/padding_16dp"
-                android:paddingBottom="@dimen/padding_16dp"
-                android:text="An choi"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textStyle="bold"/>
+                android:layout_width="0dp"
+
+
+                android:layout_height="wrap_content">
+            <ImageView
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/size_4_dp"
+                    android:src="@drawable/ic_user"
+                    android:id="@+id/icon_skill"
+                    android:layout_width="@dimen/padding_24dp" android:layout_height="@dimen/padding_24dp"/>
+            <TextView
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/icon_skill"
+                    android:id="@+id/txt_name_skill_add"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="An choi"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
+
+            <!--android:background="@drawable/shape_input_mesage"-->
+            <Spinner
+
+                    android:visibility="invisible"
+                    android:layout_toEndOf="@id/icon_skill"
+                    android:id="@+id/sp_name_skill_add"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
 
         <RatingBar
+
+
                 android:id="@+id/ratingsBar"
                 style="@style/Base.Widget.AppCompat.RatingBar.Indicator"
-                android:layout_width="wrap_content"
+                android:layout_width="175dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:numStars="5"
+                android:colorControlNormal="@color/blule"
+                android:max="5"
                 android:rating="2"
                 android:scaleX="0.8"
                 android:scaleY="0.8"
-                android:theme="@style/RatingBar"/> <!-- Số lượng ngôi sao là 7 -->
+                android:theme="@style/RatingBar"
+                android:transformPivotX="0dp"
+                android:transformPivotY="0dp"/> <!-- Số lượng ngôi sao là 7 -->
 
         <ImageButton
                 android:id="@+id/btn_delete"

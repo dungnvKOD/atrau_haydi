@@ -13,7 +13,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.Transition
 import com.atrau.guider_haydi.dto.ItemNewTrip
 import com.atrau.guider_haydi.util.MyUtils
 import com.atrau.guider_haydi.R
@@ -69,7 +68,8 @@ class NewTripAdapter(var context: Context, var items: ArrayList<ItemNewTrip>?) :
                     })
             }
 
-            holder.hour.text = itemNewTrip.hours.toString()
+
+            holder.hour.text = itemNewTrip.hours.toString()+" Ngày"
             holder.name.text = itemNewTrip.customerName.toString()
             holder.time.text =
                 " ${MyUtils.convertTime(
@@ -79,7 +79,6 @@ class NewTripAdapter(var context: Context, var items: ArrayList<ItemNewTrip>?) :
                     MyUtils.dateToLong(itemNewTrip.endDay.toString()),
                     MyUtils.TYPE_DATE_D_M_YYYY
                 )}"
-
 
             when {
                 itemNewTrip.status == "new" -> {
@@ -139,6 +138,7 @@ class NewTripAdapter(var context: Context, var items: ArrayList<ItemNewTrip>?) :
 
     fun cleanItem() {
         this.items!!.clear()
+        notifyDataSetChanged()
     }
 
     fun setOnClickListener(onNewTripListener: OnNewTripListener) {
@@ -148,10 +148,8 @@ class NewTripAdapter(var context: Context, var items: ArrayList<ItemNewTrip>?) :
     interface OnNewTripListener {
         fun newListener(paymentType: String, id: Int, tripStatus: String)
 
-
     }
 }
-
 
 class MyNewTripViewHodel(view: View) : RecyclerView.ViewHolder(view) {
     val avatar: ImageView = view.findViewById(R.id.img_avatar)
@@ -159,14 +157,5 @@ class MyNewTripViewHodel(view: View) : RecyclerView.ViewHolder(view) {
     var hour: TextView = view.findViewById(R.id.txt_time_trip)
     var time: TextView = view.findViewById(R.id.txt_time_day_trip)
     var btn: Button = view.findViewById(R.id.btn_buttom_new_trip)
+
 }
-
-
-//internal class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//
-//    var progressBar: ProgressBar
-//
-//    init {
-//        progressBar = itemView.findViewById<View>(R.id.prbItem) as ProgressBar
-//    }
-//}

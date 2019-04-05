@@ -21,9 +21,8 @@ object Constant {
     val MY_VALUE = "MY_VALUE"
     val DESCRRIPTION = "DESCRRIPTION"
     val LANGUAGES = "LANGUAGES"
-    val ALL="ALL"
-    val JOB="JOB"
-
+    val ALL = "ALL"
+    val JOB = "JOB"
 
 
     val URL_API = "http://api.haydi.vn:3001/"
@@ -34,4 +33,10 @@ object Constant {
     val REQESS_IMAGE = 300
 
     val FIREBASE_TOKEN = "firebase token"
+
+    val FRINDS = "FRINDS"
+    val CONVERSATIONS = "CONVERSATIONS"
+
+    val TEXT="TEXT"
+    val IMAGE="IMAGE"
 }

@@ -20,9 +20,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/size_14_dp"
             android:gravity="center"
-            android:text="ĐƠN HÀNG"
+            android:text="Đơn Hàng"
             android:textStyle="bold"
-            android:textAllCaps="true"
+            android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="16sp" />
     </androidx.appcompat.widget.Toolbar>

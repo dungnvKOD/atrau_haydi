@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.TextUtils
 import android.util.Log
 import android.view.*
 import android.widget.AdapterView
@@ -29,7 +30,7 @@ import com.atrau.guider_haydi.dto.JobDto
 import com.atrau.guider_haydi.view.skill.SkillFragment
 import com.atrau.guider_haydi.App
 import com.atrau.guider_haydi.R
-import com.atrau.guider_haydi.view.MainActivity
+import com.atrau.guider_haydi.view.job.JobFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
@@ -57,13 +58,15 @@ class ProfileFragment : Fragment(),
     private var checkMyValue = false
     private var checkImage: String? = null
     private var checkJob: Boolean = false
+
+    private var checkLanguages = false
     private var jobs: ArrayList<JobDto> = ArrayList()
     private var skills: ArrayList<Skill> = ArrayList()
 
-    private val GUIDER = "Guider"
-    private val SEMI_GUIDER = "Semi Guider"
-    private val CONDUTOR = "Condutor"
-    private val TRANSLATOR = "Translator"
+//    private val GUIDER = "Guider"
+//    private val SEMI_GUIDER = "Semi Guider"
+//    private val CONDUTOR = "Condutor"
+//    private val TRANSLATOR = "Translator"
 
     companion object {
         var TAG = "ProfileFragment"
@@ -75,22 +78,11 @@ class ProfileFragment : Fragment(),
         setHasOptionsMenu(true)
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//
-//        inflater.inflate(R.menu.menu_add_image_background, menu)
-//    }
+    override fun onStart() {
+        super.onStart()
+        skills.clear()
 
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return (when (item.itemId) {
-//            R.id.id_menu_add_image_background -> {
-//                checkImage = Constant.COVER
-//                addAvatar()
-//                true
-//            }
-//            else ->
-//                super.onOptionsItemSelected(item)
-//        })
-//    }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_profile, container, false)
@@ -98,12 +90,12 @@ class ProfileFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        (activity as HomeActivity).setSupportActionBar(toolbar)
-//        (activity as HomeActivity).title = ""
         init()
     }
 
     private fun init() {
+
+
         frgSkill = SkillFragment.newFragment
         (activity as HomeActivity).setOnImageListener(this)
         profilePresenter = ProfilePresenter(this)
@@ -129,6 +121,9 @@ class ProfileFragment : Fragment(),
         btn_setting_txt_skillP.setOnClickListener(this)
         profilePresenter.getSkill(App.getMyInsatnce().token)
 
+
+        //TÉT
+        fillJob()
     }
 
     // su kien click
@@ -175,8 +170,8 @@ class ProfileFragment : Fragment(),
             }
 
             R.id.btn_setting_txt_jobP -> {
-
-                settingJob()
+                (activity as HomeActivity).addOrShowFragment(JobFragment.newFragment, R.id.layout_kill, true, true)
+//                settingJob()
             }
 
             R.id.btn_complete_emailP -> {
@@ -187,7 +182,7 @@ class ProfileFragment : Fragment(),
                 val email = edt_setting_emailP.text.toString()
 
                 val guideDto =
-                    GuideDto(email, null, null, null, null, null, null, null, null, null)
+                    GuideDto(email, null, null, null, null, null, null, null, null, null, null)
                 putData(guideDto, Constant.EMAIL)
                 view_setting_emailP.text = ""
                 checkPhone = false
@@ -231,7 +226,7 @@ class ProfileFragment : Fragment(),
             progesbar(Constant.MY_VALUE)
 
             val myValue = edt_write_my_valueP.text.toString()
-            val guideDto = GuideDto(null, null, null, null, myValue, null, null, null, null, null)
+            val guideDto = GuideDto(null, null, null, null, myValue, null, null, null, null, null, null)
             putData(guideDto, Constant.MY_VALUE)
             checkMyValue = false
             Log.d(TAG, "put my value...")
@@ -263,78 +258,30 @@ class ProfileFragment : Fragment(),
 
     @SuppressLint("ResourceAsColor")
     private fun settingJob() {
-        if (!checkJob) {
-
-            //TODO...
-            //thi sua
-            sp_1.visibility = View.VISIBLE
-            sp_2.visibility = View.VISIBLE
-            sp_3.visibility = View.VISIBLE
-            sp_4.visibility = View.VISIBLE
-
-            layout_jobP.visibility = View.VISIBLE
-            txt_jobP.visibility = View.VISIBLE
-            txt_write_jobP.visibility = View.INVISIBLE
-            if (txt_write_jobP.text.trim() == "Thêm công việc của bạn") {
-            } else {
-                //them cong viec cho no
-
-            }
-            checkJob = true
-        } else {
-            //thi lu
-
-            sp_1.visibility = View.INVISIBLE
-            sp_2.visibility = View.INVISIBLE
-            sp_3.visibility = View.INVISIBLE
-            sp_4.visibility = View.INVISIBLE
-            progesbar(Constant.JOB)
-            txt_write_jobP.text = ""
-            txt_write_jobP.visibility = View.VISIBLE
-
-//            checkBox()
-            checkJob = false
-        }
+        checkJob = !checkJob
     }
-
-
-//    private fun listJob(type: String, hereType: String) {
-//
-//
-//    }
 
     override fun getJob(jobs: ArrayList<JobDto>) {
-//        cb_condutor.setText("dung")
-        this.jobs = jobs
-        fillJob(sp_1, jobs)
-        fillJob(sp_2, jobs)
-        fillJob(sp_3, jobs)
-        fillJob(sp_4, jobs)
+
 
 
     }
 
-    private fun fillJob(view: Spinner, jobs: ArrayList<JobDto>) {
-        val names: ArrayList<String> = ArrayList()
-        for (i in 0 until jobs.size) {
-            names.add(jobs[i].name!!)
+    private fun fillJob() {
+        val ids: ArrayList<Int> = ArrayList()
+//        for (i in 0 until jobs.size) {
+//            ids.add(jobs[i].id!!)
+//        }
 
-        }
+        ids.add(1)
+        ids.add(2)
+        ids.add(3)
 
-        val adapter: ArrayAdapter<String> = ArrayAdapter(activity, android.R.layout.simple_spinner_item, names)
-        adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
-        view.adapter = adapter
-        view.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-
-            }
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        val hashMap: HashMap<String, ArrayList<Int>> = HashMap()
+        hashMap.put("jobs", ids)
+        profilePresenter.putJob(hashMap, Constant.JOB)
 
 
-            }
-        }
     }
 
     @SuppressLint("ResourceAsColor")
@@ -363,7 +310,7 @@ class ProfileFragment : Fragment(),
             btn_setting_priceP.setTextColor(R.color.red)
             val description = edt_write_descriptionP.text.toString().trim()
             val guideDto =
-                GuideDto(null, null, null, null, null, description, null, null, null, null)
+                GuideDto(null, null, null, null, null, description, null, null, null, null, null)
             putData(guideDto, Constant.DESCRRIPTION)
             checkDescription = false
 
@@ -417,7 +364,7 @@ class ProfileFragment : Fragment(),
             val price = edt_write_priceP.text.toString().trim()
             val priceUnit = edt_write_price_unitP.text.toString()
             val guideDto =
-                GuideDto(null, null, null, null, null, null, price.toInt(), priceUnit, null, null)
+                GuideDto(null, null, null, null, null, null, price.toInt(), priceUnit, null, null, null)
             putData(guideDto, Constant.PRICE)
             checkPrice = false
         }
@@ -444,44 +391,67 @@ class ProfileFragment : Fragment(),
     @SuppressLint("ResourceAsColor")
     private fun settingLanguages() {
 
-        if (!checkDescription) {
+        if (!checkLanguages) {
             //thi sua
             txt_write_languagesP.visibility = View.INVISIBLE
-            edt_write_languagesP.visibility = View.VISIBLE
-//            btn_setting_txt_languagesP.text = getString(R.string.txt_save)
-            btn_setting_txt_languagesP.setTextColor(R.color.red)
-
-            if (txt_write_languagesP.text.trim() == getString(R.string.text_languages).trim()) {
-                edt_write_languagesP.setText("")
-            } else {
-                edt_write_languagesP.setText(txt_write_languagesP.text.toString())
-
-            }
-            checkDescription = true
+            layout_1_languagesP.visibility = View.VISIBLE
+            checkLanguages = true
             //TODO...
+            Log.d(TAG, "...checkLanguages ...false")
 
         } else {
+            Log.d(TAG, "...checkLanguages ...true")
+            txt_languagesP.visibility = View.VISIBLE
             //thi luu
+//            txt_languagesP.visibility = View.VISIBLE
             progesbar(Constant.LANGUAGES)
-            txt_write_languagesP.text = ""
-            val languages = edt_write_languagesP.text.toString()
-            val guideDto = GuideDto(null, null, null, null, null, null, null, null, null, null)
-            putData(guideDto, Constant.MY_VALUE)
+
+
+//            var language: HashMap<String, ArrayList<String>> = HashMap()
+            var arrLG: ArrayList<String> = ArrayList()
+            if (cb_vietnamese.isChecked) {
+                arrLG.add(" vietnamese")
+
+
+            }
+            if (cb_chinese.isChecked) {
+                arrLG.add(" chinese")
+
+            }
+            if (cb_english.isChecked) {
+                arrLG.add(" english")
+            }
+            if (cb_english.isChecked) {
+                arrLG.add(" english")
+
+            }
+            if (cb_french.isChecked) {
+                arrLG.add(" spain")
+            }
+            if (cb_spain.isChecked) {
+
+                arrLG.add(" spain ")
+            }
+
+            Log.d(TAG, "dung...." + arrLG.toString())
+//            var lg = arrLG.joinToString { "," }
+            val lg = TextUtils.join(",", arrLG)
+
+            val guideDto = GuideDto(null, null, null, null, null, null, null, null, null, null, lg.toString())
+            putData(guideDto, Constant.LANGUAGES)
 
             txt_write_languagesP.visibility = View.VISIBLE
-            edt_write_languagesP.visibility = View.GONE
-//            btn_setting_txt_languagesP.text = getString(R.string.txt_sua)
             btn_setting_txt_languagesP.setTextColor(R.color.red)
-            checkDescription = false
-            //TODO...
+            layout_1_languagesP.visibility = View.GONE
+            checkLanguages = false
 
         }
     }
 
     override fun getLangguages(guideDto: GuideDto) {
-
+        Log.d(TAG, "dung...." + guideDto.languages)
+        txt_write_languagesP.text = guideDto.languages
         pb_languages.visibility = View.INVISIBLE
-
     }
 
     override fun getEmail(guideDto: GuideDto) {
@@ -489,6 +459,15 @@ class ProfileFragment : Fragment(),
         pb_email.visibility = View.INVISIBLE
         view_setting_emailP.text = guideDto.email
         Toast.makeText(activity, "${guideDto.email}", Toast.LENGTH_LONG).show()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    fun onIsPermisstionNotGranted() {
+        //chua dc cap dc cap
+        requestPermissions(
+            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+            Constant.REQESS_IMAGE
+        )
     }
 
     private fun checkPermisstion() {
@@ -499,15 +478,6 @@ class ProfileFragment : Fragment(),
             Toast.makeText(activity, "chua dc cap quyen", Toast.LENGTH_LONG).show()
             onIsPermisstionNotGranted()
         }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.M)
-    fun onIsPermisstionNotGranted() {
-        //chua dc cap dc cap
-        requestPermissions(
-            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-            Constant.REQESS_IMAGE
-        )
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -545,6 +515,7 @@ class ProfileFragment : Fragment(),
                         null,
                         null,
                         persistImage(bitmap).toString(),
+                        null,
                         null
                     )
                 putData(guideDto, Constant.COVER)
@@ -560,7 +531,8 @@ class ProfileFragment : Fragment(),
                         null,
                         null,
                         null,
-                        persistImage(bitmap).toString()
+                        persistImage(bitmap).toString(),
+                        null
                     )
                 profilePresenter.putProfile(guideDto, Constant.AVATAR)
             }
@@ -587,10 +559,10 @@ class ProfileFragment : Fragment(),
 
         txt_write_priceP.text = guideDto.price.toString() + " " + guideDto.priceUnit
         if (guideDto.jobs == "null" || guideDto.jobs == null || guideDto.jobs == "") {
-            txt_write_jobP.text = "Thêm công việc của bạn"
+//            txt_write_jobP.text = "Thêm công việc của bạn"
 
         } else {
-            txt_write_jobP.text = guideDto.jobs
+//            txt_write_jobP.text = guideDto.jobs
 
         }
 
@@ -714,7 +686,7 @@ class ProfileFragment : Fragment(),
 
     override fun getMyJob(guideDto: GuideDto) {
         Log.d(TAG, guideDto.jobs + "dung")
-        txt_write_jobP.text = guideDto.jobs
+//        txt_write_jobP.text = guideDto.jobs
         pb_job.visibility = View.INVISIBLE
     }
 

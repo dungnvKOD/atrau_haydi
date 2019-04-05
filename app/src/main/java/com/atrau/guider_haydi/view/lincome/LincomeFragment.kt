@@ -16,10 +16,7 @@ import com.atrau.guider_haydi.adapter.PaymentAdapter
 import com.atrau.guider_haydi.R
 import com.atrau.guider_haydi.adapter.EndlessRecyclerViewScrollListener
 import com.atrau.guider_haydi.dto.Payment
-import com.atrau.guider_haydi.dto.Skill
 import com.atrau.guider_haydi.view.HomeActivity
-import com.atrau.guider_haydi.view.skill.AddSkill
-import kotlinx.android.synthetic.main.fragment_campaign.*
 import kotlinx.android.synthetic.main.fragment_income.*
 
 class LincomeFragment : Fragment(), OnPaymentViewListener, View.OnClickListener {
@@ -35,6 +32,7 @@ class LincomeFragment : Fragment(), OnPaymentViewListener, View.OnClickListener 
     private val RUT_TIEN = "RUT_TIEN"
     private var check: String = ""
     private lateinit var dialog: PaymentDialog
+    private lateinit var linearLayoutManager: LinearLayoutManager
 
     companion object {
         val TAG = "LincomeFragment"
@@ -62,7 +60,7 @@ class LincomeFragment : Fragment(), OnPaymentViewListener, View.OnClickListener 
         paymentPresenter.getPaymentHistory(0, 0)
 //        paymentPresenter.postPayment()
 
-        val linearLayoutManager = LinearLayoutManager(activity)
+        linearLayoutManager = LinearLayoutManager(activity)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         rcv_payment.layoutManager = linearLayoutManager
         paymentAdapter = PaymentAdapter(activity!!, payments)
@@ -71,13 +69,17 @@ class LincomeFragment : Fragment(), OnPaymentViewListener, View.OnClickListener 
         btn_rut_tien.setOnClickListener(this)
 
         //        LẮNG NGHE SỰ KIỆN SCOLL
+        scoll()
+
+    }
+
+    private fun scoll() {
         scrollListener = object : EndlessRecyclerViewScrollListener(linearLayoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
                 if (totalItemsCount >= total) {
                     return
                 }
                 paymentPresenter.getPaymentHistory(10, totalItemsCount)
-
             }
         }
         rcv_payment.addOnScrollListener(scrollListener)
@@ -137,9 +139,18 @@ class LincomeFragment : Fragment(), OnPaymentViewListener, View.OnClickListener 
         Log.d(TAG, "$total")
 
         paymentPresenter.getSumPayment()
+        if (check ==RUT_TIEN) {
+//            scoll()
+            paymentAdapter.clearItem()
+            paymentPresenter.getPaymentHistory(5, 0)
+
+//            rcv_payment.addOnScrollListener(scrollListener)
+            check = ""
+        }
     }
 
     override fun postPaymentFailed(messsage: String) {
         Toast.makeText(activity, messsage, Toast.LENGTH_LONG).show()
     }
+
 }

@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.atrau.guider_haydi.R
-import com.atrau.guider_haydi.view.phonebook.PhoneBookFragment
+import com.atrau.guider_haydi.view.friends.FriendsFragment
 import kotlinx.android.synthetic.main.fragment_message_group.*
 
 
@@ -53,7 +53,7 @@ class MessageGroupFragment : Fragment() {
                 }
                 1 -> {
 
-                    PhoneBookFragment.newFragment
+                    FriendsFragment.newFragment
                 }
                 else -> {
 

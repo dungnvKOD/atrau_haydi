@@ -65,7 +65,6 @@ class DetailTripFragment : Fragment(), DetailTripViewListener, View.OnClickListe
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

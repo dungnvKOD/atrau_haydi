@@ -121,7 +121,7 @@ class LoginFModel(val loginFListener: LoginFListener) {
                     val data = obj.getJSONObject("data")
                     val banner = data.getString("banner")
                     loginFListener.getImageSuccess(banner)
-//                } else { //that bai
+                } else { //that bai
 
                 }
             }

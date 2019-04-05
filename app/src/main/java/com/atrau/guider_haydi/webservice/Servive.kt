@@ -22,7 +22,8 @@ interface Servive {
         @Field("address") address: String,
         @Field("country_code") country_code: String,
         @Field("lat") lat: String,
-        @Field("lon") lon: String
+        @Field("lon") lon: String,
+        @Field("unit") unit: String
 
     ): Call<ResponseBody>
 
@@ -83,10 +84,7 @@ interface Servive {
         @Header("authorization") token: String,
         @Path("order_id") order_id: String
     ): Call<ResponseBody>
-
-
     // put đong ý yêu cầu
-
 
     @PUT("/order-guider/{order_id}")
     fun putDetailTrip(@Header("authorization") token: String, @Path("order_id") order_id: String, @Body body: HashMap<String, String>): Call<ResponseBody>
@@ -125,8 +123,6 @@ interface Servive {
     fun putJob(@Header("authorization") token: String, @Body hashMap: HashMap<String, ArrayList<Int>>): Call<ResponseBody>
 
 
-
-
     //  post  payment
     @POST("/payment/request-cashback")
     fun postPayment(@Header("authorization") token: String, @Body body: HashMap<String, Any>): Call<ResponseBody>
@@ -138,6 +134,16 @@ interface Servive {
     //get sum payment
     @GET("/payment/summary")
     fun getSumPayment(@Header("authorization") token: String): Call<ResponseBody>
+
+    //
+    @GET("/friends")
+    fun getFriends(
+        @Header("authorization") token: String, @Query("limit") limit: Int, @Query("offset") offset: Int, @Query(
+            "sort_by"
+        ) sortBy: String
+    ): Call<ResponseBody>
+    @PUT()
+    fun putImage(): Call<ResponseBody>
 
 
 }

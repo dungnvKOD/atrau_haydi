@@ -16,19 +16,20 @@ class RegisterFModel(val registerFListener: RegisterFListener) {
     }
 
     fun register(
-            name: String,
-            phone: String,
-            password: String,
-            email: String,
-            address: String,
-            country_code: String,
-            lat: String,
-            lon: String
+        name: String,
+        phone: String,
+        password: String,
+        email: String,
+        address: String,
+        country_code: String,
+        lat: String,
+        lon: String,
+        unit: String
     ) {
         //TODO
 
         val call: Call<ResponseBody> =
-                Client.getService()!!.postRegister(email, phone, password, name, address, country_code, lat, lon)
+            Client.getService()!!.postRegister(email, phone, password, name, address, country_code, lat, lon, unit)
 
         call.enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {

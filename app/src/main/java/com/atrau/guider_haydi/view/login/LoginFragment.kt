@@ -215,7 +215,7 @@ class LoginFragment : Fragment(), View.OnClickListener,
             .into(img_title)
         (activity as MainActivity).linkSetting = banner
 
-        Log.d(TAG, banner + " dung")
+        Log.d(TAG, "$banner dung")
     }
 
 
