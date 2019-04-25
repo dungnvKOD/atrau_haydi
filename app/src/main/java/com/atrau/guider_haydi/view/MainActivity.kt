@@ -15,10 +15,6 @@ import com.atrau.guider_haydi.R
 import com.atrau.guider_haydi.util.MyLocation
 import com.google.android.gms.common.api.ResolvableApiException
 
-//import com.google.firebase.FirebaseApp
-//import com.google.firebase.iid.FirebaseInstanceId
-
-
 class MainActivity : BaseActivity(), MyLocation.OnGetLocation {
     var code: String? = null
 
@@ -46,9 +42,6 @@ class MainActivity : BaseActivity(), MyLocation.OnGetLocation {
         location = MyLocation(this@MainActivity, this)
         checkLocationPermistion()
         val pInfo = this.packageManager.getPackageInfo(packageName, 0)
-//        val version = pInfo.versionName
-//        Log.d(TAG,version+"dung version")
-
     }
 
     //check location
@@ -98,7 +91,7 @@ class MainActivity : BaseActivity(), MyLocation.OnGetLocation {
                 if (resultCode == Activity.RESULT_OK) {
                     Handler().postDelayed({
                         location.getMyLocation()
-                        Log.d(TAG, "...DUNG...: ")
+
                     }, 3000)
                 }
             }

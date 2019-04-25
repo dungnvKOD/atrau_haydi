@@ -1,6 +1,7 @@
 package com.atrau.guider_haydi.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +14,11 @@ import com.atrau.guider_haydi.dto.Skill
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_job.view.*
 
-
 class JobAdapter(val context: Context, val jobs: ArrayList<JobDto>) :
     RecyclerView.Adapter<JobAdapter.MySkillViewHodel>() {
+    companion object {
+        var TAG = "JobAdapter"
+    }
 
     private val inflater = LayoutInflater.from(context)
     private lateinit var onClickListener: OnClickListener
@@ -31,6 +34,24 @@ class JobAdapter(val context: Context, val jobs: ArrayList<JobDto>) :
 
     override fun onBindViewHolder(holder: MySkillViewHodel, position: Int) {
         val job = jobs[holder.adapterPosition]
+
+        holder.itemView.setOnClickListener {
+            job.isEmpty = !job.isEmpty
+            Log.d(TAG, "onBindViewHolder...")
+
+            if (job.isEmpty) {
+                holder.itemView.setBackgroundResource(R.color.brown)
+            } else {
+                holder.itemView.setBackgroundResource(R.color.white)
+            }
+        }
+
+        if (job.isEmpty) {
+            holder.itemView.setBackgroundResource(R.color.brown)
+        } else {
+
+            holder.itemView.setBackgroundResource(R.color.white)
+        }
         Glide.with(context).load(job.icon).into(holder.icon)
         holder.txt_name.text = job.name
 
@@ -53,7 +74,7 @@ class JobAdapter(val context: Context, val jobs: ArrayList<JobDto>) :
     }
 
     interface OnClickListener {
-        fun onClickItem(skill: Skill)
+        fun onClickItem()
 
 
     }

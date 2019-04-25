@@ -4,5 +4,5 @@ import com.atrau.guider_haydi.dto.JobDto
 
 interface OnJobModel {
 
-    fun getJob(jobs: ArrayList<JobDto>)
+    fun putJob()
 }

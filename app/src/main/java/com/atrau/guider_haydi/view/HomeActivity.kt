@@ -25,6 +25,7 @@ import com.atrau.guider_haydi.R
 import com.atrau.guider_haydi.conmon.Constant
 import com.atrau.guider_haydi.dto.Campaign
 import com.atrau.guider_haydi.dto.GuideDto
+import com.atrau.guider_haydi.dto.JobDto
 import com.atrau.guider_haydi.view.message_group.MessageGroupFragment
 import com.atrau.guider_haydi.view.profile.ProfileModel
 import com.atrau.guider_haydi.webservice.Client
@@ -41,7 +42,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class HomeActivity : AppCompatActivity() {
-//    var arrSkill: ArrayList<Skill> = ArrayList()
+    //    var arrSkill: ArrayList<Skill> = ArrayList()
+    var arrJob: ArrayList<JobDto> = ArrayList()
 
     companion object {
         val TAG = "HomeActivity"
@@ -61,7 +63,6 @@ class HomeActivity : AppCompatActivity() {
         newTripFragment = NewTripFragment.newFragment
         addOrShowFragment(newTripFragment, R.id.frame_home, false, false)
         init()
-        Log.d(TAG, "onCreate...")
 
     }
 
@@ -71,7 +72,6 @@ class HomeActivity : AppCompatActivity() {
         FirebaseInstanceId.getInstance().instanceId
             .addOnCompleteListener(OnCompleteListener { task ->
                 if (!task.isSuccessful) {
-                    Log.w(TAG, "getInstanceId failed", task.exception)
                     return@OnCompleteListener
                 }
 
@@ -112,8 +112,6 @@ class HomeActivity : AppCompatActivity() {
             notificationChannel.enableVibration(true)
             notificationChannel.setShowBadge(true)
             notificationManager.createNotificationChannel(notificationChannel2)
-
-            Log.d(TAG, "dung1222121")
 
         }
 

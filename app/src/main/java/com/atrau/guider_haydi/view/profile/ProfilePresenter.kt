@@ -31,10 +31,7 @@ class ProfilePresenter(val onProfileViewListenner: OnProfileViewListenner) :
         profileModel.getSkill(token)
     }
 
-    fun putJob(hashMap: HashMap<String, ArrayList<Int>>, jobType: String) {
-        profileModel.putJob(hashMap, jobType)
 
-    }
 
     fun getFreeJob() {
         profileModel.getJob()

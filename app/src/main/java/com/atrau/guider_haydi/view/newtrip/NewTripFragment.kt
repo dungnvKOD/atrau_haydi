@@ -101,7 +101,6 @@ class NewTripFragment : Fragment(),
                     return
                 }
                 newTripPresenter.getAllMerchant(4, totalItemsCount)
-                Log.d(TAG, "onLoadMore ....page= $page limit=$totalItemsCount ")
             }
         }
 
@@ -111,12 +110,11 @@ class NewTripFragment : Fragment(),
 
     override fun onStart() {
         super.onStart()
-        Log.d(TAG, "oooooooo")
+
     }
 
     override fun getMerchantSuccess(total: Int, listMerchant: ArrayList<Array<Any>>) {
         this.total = total
-        Log.d(TAG, "getMerchantSuccess... : ${listMerchant.size}")
         if (status == DONE || status == NEW || status == CANCEL) {
             newTripAdapter.cleanItem()
 //            Log.d(TAG, "clear... : " )

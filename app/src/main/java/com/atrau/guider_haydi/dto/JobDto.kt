@@ -6,13 +6,15 @@ class JobDto {
     var name: String? = null
     var nameEn: String? = null
     var icon: String? = null
+    var isEmpty: Boolean = false
 
-    constructor(id: Int?, name: String?, nameEn: String?, icon: String?) {
+
+    constructor()
+    constructor(id: Int?, name: String?, nameEn: String?, icon: String?, isEmpty: Boolean) {
         this.id = id
         this.name = name
         this.nameEn = nameEn
         this.icon = icon
+        this.isEmpty = isEmpty
     }
-
-    constructor()
 }

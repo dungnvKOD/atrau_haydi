@@ -1,5 +1,6 @@
 package com.atrau.guider_haydi.view.login
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.text.TextUtils
@@ -49,6 +50,37 @@ class LoginFPresenter(context: Context, val loginViewFListener: LoginViewFListen
         loginFModel.getImage()
     }
 
+    @SuppressLint("CommitPrefEdits")
+    fun loginLogout(isLogin: Boolean) {
+        val edit: SharedPreferences.Editor = pref.edit()
+        edit.putBoolean(Constant.KEY_LOGIN, isLogin)
+        edit.apply()
+    }
+
+    fun getLoginLogout(): Boolean? {
+        val isLogin = pref.getBoolean(Constant.KEY_LOGIN, false)
+        return isLogin
+    }
+    fun rememberLoginLogout(phone: String, password: String) {
+
+        val edit: SharedPreferences.Editor = pref.edit()
+
+
+            edit.putString(Constant.KEY_PHONE_NUMBER_LOGIN, phone)
+            edit.putString(Constant.KEY_PASSWORD_LOGIN, password)
+        edit.apply()
+    }
+
+    fun getPasswordLoginLogout(): String? {
+        val password = pref.getString(Constant.KEY_PASSWORD_LOGIN, "")
+        return password
+    }
+    fun getPhoneLoginLogout(): String? {
+        val phone = pref.getString(Constant.KEY_PHONE_NUMBER_LOGIN, "")
+        return phone
+    }
+
+
     fun rememberUser(phone: String, password: String, status: Boolean) {
 
         val edit: SharedPreferences.Editor = pref.edit()
@@ -89,7 +121,17 @@ class LoginFPresenter(context: Context, val loginViewFListener: LoginViewFListen
 
     }
 
-    override fun getGeoSuccess(country: String, region: String, eu: String, timezone: String, city: String, lat: Double, lon: Double, metro: String, area: String) {
+    override fun getGeoSuccess(
+        country: String,
+        region: String,
+        eu: String,
+        timezone: String,
+        city: String,
+        lat: Double,
+        lon: Double,
+        metro: String,
+        area: String
+    ) {
         loginViewFListener.getGeoSuccess(country, region, eu, timezone, city, lat, lon, metro, area)
     }
 

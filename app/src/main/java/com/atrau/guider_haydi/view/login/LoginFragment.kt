@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.location.Geocoder
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -25,7 +26,6 @@ import java.util.*
 class LoginFragment : Fragment(), View.OnClickListener,
     LoginViewFListener, MainActivity.OnListenner {
 
-
     private lateinit var loginFPresenter: LoginFPresenter
     private lateinit var rootView: View
 
@@ -39,7 +39,6 @@ class LoginFragment : Fragment(), View.OnClickListener,
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
@@ -52,12 +51,24 @@ class LoginFragment : Fragment(), View.OnClickListener,
     }
 
     private fun init() {
+        (activity as MainActivity).setOnListenner(this)
+        btn_forgot_password.setOnClickListener(this)
+        btn_register_login.setOnClickListener(this)
+        btn_login.setOnClickListener(this)
+
+        Log.d(TAG,loginFPresenter.getLoginLogout()!!.toString())
+        if (loginFPresenter.getLoginLogout()!!) {
+            loginFPresenter.login(loginFPresenter.getPhoneLoginLogout()!!, loginFPresenter.getPasswordLoginLogout()!!)
+            return
+        }
+
+
+
 
         loginFPresenter.getImage()
         val phone: String? = loginFPresenter.getPhone()
         val password: String? = loginFPresenter.getPassword()
-
-        if (loginFPresenter.getStatus() == true) {
+        if (loginFPresenter.getStatus()) {
             loginFPresenter.rememberUser(
                 edt_phone_login.text.toString().trim(),
                 edt_password_login.text.toString().trim(),
@@ -78,10 +89,6 @@ class LoginFragment : Fragment(), View.OnClickListener,
 
         // đăng ký interface
 //        RegisterFragment().setOnFinlFromLogin(this) //dang ky set phone tu register sang login
-        (activity as MainActivity).setOnListenner(this)
-        btn_forgot_password.setOnClickListener(this)
-        btn_register_login.setOnClickListener(this)
-        btn_login.setOnClickListener(this)
 
     }
 
@@ -89,10 +96,11 @@ class LoginFragment : Fragment(), View.OnClickListener,
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.btn_login -> {
-
                 val phone: String = edt_phone_login.text.toString().trim()
                 val password: String = edt_password_login.text.toString().trim()
                 loginFPresenter.login(phone, password)
+                loginFPresenter. loginLogout(true)
+                loginFPresenter.rememberLoginLogout(phone, password)
 
                 if (check_box_login.isChecked) {
                     loginFPresenter.rememberUser(phone, password, true)
@@ -107,7 +115,7 @@ class LoginFragment : Fragment(), View.OnClickListener,
             // quen mat khau
             R.id.btn_forgot_password -> {
                 //TODO
-                (activity as MainActivity).toast("btn_forgot_password")
+//                (activity as MainActivity).toast("btn_forgot_password")
             }
         }
     }
@@ -119,8 +127,6 @@ class LoginFragment : Fragment(), View.OnClickListener,
         App.getMyInsatnce().lon = lon
 
         getAddress(lat, lon)
-
-        Toast.makeText(activity, "dung : $lat $lon", Toast.LENGTH_LONG).show()
     }
 
     override fun onGetMyLocationFaile() {
@@ -144,13 +150,18 @@ class LoginFragment : Fragment(), View.OnClickListener,
 
     override fun loginSuccess() {
         //TODO...
+        loginFPresenter.loginLogout(true)
         val intent: Intent = Intent((activity), HomeActivity::class.java)
         startActivity(intent)
+
+
+
+
         (activity as MainActivity).finish()
     }
 
     override fun loginFale(message: String) {
-        (activity as MainActivity).toast("api$message")
+        (activity as MainActivity).toast("$message")
 
     }
 
@@ -161,8 +172,6 @@ class LoginFragment : Fragment(), View.OnClickListener,
             val addresses = geocoder.getFromLocation(lat, lng, 1)
             val obj = addresses[0]
             var add = obj.getAddressLine(0)
-            Log.v("IGA", "Address$obj")
-
 
             add = add + "\n" + obj.countryName
             add = add + "\n" + obj.countryCode
@@ -195,17 +204,15 @@ class LoginFragment : Fragment(), View.OnClickListener,
         //TODO cho nay phai add vao vieuregister
         //
 
-        Log.d(TAG, "country $country region $region area $area")
         (activity as MainActivity).area = area
         App.getMyInsatnce().lat = lat
         App.getMyInsatnce().lon = lon
-        Toast.makeText(activity, " lay vi tri tren api", Toast.LENGTH_LONG).show()
 
 
     }
 
     override fun getGeoFaile() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
 
     }
 
@@ -215,7 +222,6 @@ class LoginFragment : Fragment(), View.OnClickListener,
             .into(img_title)
         (activity as MainActivity).linkSetting = banner
 
-        Log.d(TAG, "$banner dung")
     }
 
 

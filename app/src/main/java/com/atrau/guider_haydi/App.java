@@ -33,6 +33,7 @@ public class App extends Application {
         if (insatnce == null) {
             insatnce = new App();
         }
+
         return insatnce;
     }
 

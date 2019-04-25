@@ -77,7 +77,6 @@ class TimeBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListene
                     DatePickerDialog(context, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                         datePickerTo = calendar.timeInMillis
                         txt_to.text = "$dayOfMonth-${month+1}-$year"
-                        Log.d(TAG, "dung.......${calendar.timeInMillis}")
 
                     }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
                 datePickerDialogTo.show()

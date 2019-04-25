@@ -46,9 +46,10 @@ import kotlin.collections.HashMap
 @SuppressLint("ParcelCreator")
 class ProfileFragment : Fragment(),
     OnProfileViewListenner, View.OnClickListener, HomeActivity.OnImageListener,
-    SkillFragment.OnCkickSkillListener {
+    SkillFragment.OnCkickSkillListener, JobFragment.OnClickListener {
 
 
+    private var jobFragment = JobFragment.newFragment
     private lateinit var frgSkill: SkillFragment
     private lateinit var profilePresenter: ProfilePresenter
     private lateinit var mySkillAdapter: MySkillAdapter
@@ -62,11 +63,6 @@ class ProfileFragment : Fragment(),
     private var checkLanguages = false
     private var jobs: ArrayList<JobDto> = ArrayList()
     private var skills: ArrayList<Skill> = ArrayList()
-
-//    private val GUIDER = "Guider"
-//    private val SEMI_GUIDER = "Semi Guider"
-//    private val CONDUTOR = "Condutor"
-//    private val TRANSLATOR = "Translator"
 
     companion object {
         var TAG = "ProfileFragment"
@@ -95,7 +91,7 @@ class ProfileFragment : Fragment(),
 
     private fun init() {
 
-
+        jobFragment.setOnClickListener(this)
         frgSkill = SkillFragment.newFragment
         (activity as HomeActivity).setOnImageListener(this)
         profilePresenter = ProfilePresenter(this)
@@ -119,16 +115,18 @@ class ProfileFragment : Fragment(),
         btn_complete_emailP.setOnClickListener(this)
         btn_setting_txt_jobP.setOnClickListener(this)
         btn_setting_txt_skillP.setOnClickListener(this)
+        btn_log_out_P.setOnClickListener(this)
         profilePresenter.getSkill(App.getMyInsatnce().token)
 
-
-        //TÉT
-        fillJob()
     }
 
     // su kien click
     override fun onClick(v: View?) {
         when (v!!.id) {
+            R.id.btn_log_out_P -> {
+              ///
+
+            }
             R.id.btn_add_cover -> {
                 checkImage = Constant.COVER
                 addAvatar()
@@ -170,7 +168,9 @@ class ProfileFragment : Fragment(),
             }
 
             R.id.btn_setting_txt_jobP -> {
-                (activity as HomeActivity).addOrShowFragment(JobFragment.newFragment, R.id.layout_kill, true, true)
+                (activity as HomeActivity).addOrShowFragment(jobFragment, R.id.layout_kill, true, true)
+                (activity as HomeActivity).arrJob = this.arrJob
+
 //                settingJob()
             }
 
@@ -233,6 +233,12 @@ class ProfileFragment : Fragment(),
         }
     }
 
+    //get job
+    override fun onClickItem() {
+        Log.d(TAG, "onClickItem...")
+        profilePresenter.getProfile(App.getMyInsatnce().token, Constant.JOB)
+    }
+
     @SuppressLint("ResourceAsColor")
     override fun getMyValue(guideDto: GuideDto) {
 
@@ -253,35 +259,6 @@ class ProfileFragment : Fragment(),
 
     private fun addAvatar() {
         checkPermisstion()
-    }
-
-
-    @SuppressLint("ResourceAsColor")
-    private fun settingJob() {
-        checkJob = !checkJob
-    }
-
-    override fun getJob(jobs: ArrayList<JobDto>) {
-
-
-
-    }
-
-    private fun fillJob() {
-        val ids: ArrayList<Int> = ArrayList()
-//        for (i in 0 until jobs.size) {
-//            ids.add(jobs[i].id!!)
-//        }
-
-        ids.add(1)
-        ids.add(2)
-        ids.add(3)
-
-        val hashMap: HashMap<String, ArrayList<Int>> = HashMap()
-        hashMap.put("jobs", ids)
-        profilePresenter.putJob(hashMap, Constant.JOB)
-
-
     }
 
     @SuppressLint("ResourceAsColor")
@@ -306,7 +283,6 @@ class ProfileFragment : Fragment(),
             txt_write_descriptionP.text = ""
             txt_write_descriptionP.visibility = View.VISIBLE
             edt_write_descriptionP.visibility = View.GONE
-//            btn_setting_txt_descriptionP.text = getString(R.string.txt_sua)
             btn_setting_priceP.setTextColor(R.color.red)
             val description = edt_write_descriptionP.text.toString().trim()
             val guideDto =
@@ -396,45 +372,33 @@ class ProfileFragment : Fragment(),
             txt_write_languagesP.visibility = View.INVISIBLE
             layout_1_languagesP.visibility = View.VISIBLE
             checkLanguages = true
-            //TODO...
-            Log.d(TAG, "...checkLanguages ...false")
 
         } else {
-            Log.d(TAG, "...checkLanguages ...true")
             txt_languagesP.visibility = View.VISIBLE
             //thi luu
-//            txt_languagesP.visibility = View.VISIBLE
             progesbar(Constant.LANGUAGES)
 
-
-//            var language: HashMap<String, ArrayList<String>> = HashMap()
-            var arrLG: ArrayList<String> = ArrayList()
+            val arrLG: ArrayList<String> = ArrayList()
             if (cb_vietnamese.isChecked) {
                 arrLG.add(" vietnamese")
-
-
             }
             if (cb_chinese.isChecked) {
                 arrLG.add(" chinese")
-
             }
             if (cb_english.isChecked) {
                 arrLG.add(" english")
             }
-            if (cb_english.isChecked) {
-                arrLG.add(" english")
-
+            if (cb_japanese.isChecked) {
+                arrLG.add(" japanese")
             }
             if (cb_french.isChecked) {
-                arrLG.add(" spain")
+                arrLG.add(" french")
             }
             if (cb_spain.isChecked) {
 
                 arrLG.add(" spain ")
             }
 
-            Log.d(TAG, "dung...." + arrLG.toString())
-//            var lg = arrLG.joinToString { "," }
             val lg = TextUtils.join(",", arrLG)
 
             val guideDto = GuideDto(null, null, null, null, null, null, null, null, null, null, lg.toString())
@@ -546,7 +510,7 @@ class ProfileFragment : Fragment(),
     // callbacck
     @SuppressLint("SetTextI18n")
     override fun onGetProfileSuccess(guideDto: GuideDto) {
-
+        setJob(guideDto)
         txt_nameP.text = guideDto.name
         txt_cityP.text = guideDto.address
         view_setting_emailP.text = guideDto.email
@@ -663,7 +627,6 @@ class ProfileFragment : Fragment(),
 
     override fun getSkillSuccess(skill: ArrayList<Skill>) {
         (activity as HomeActivity).arrSkill = skill
-        Log.d(TAG, "tất cả đều vào đây...")
         for (i in 0 until skill.size) {
             mySkillAdapter.setSkill(skill[i])
         }
@@ -679,15 +642,82 @@ class ProfileFragment : Fragment(),
 
     override fun onClickSkill(arrSkill: ArrayList<Skill>) {
         //TODO cua dung
-        //khi add xong thi goi lại fun get skill lại
+
         profilePresenter.getSkill(App.getMyInsatnce().token)
         mySkillAdapter.clearItem()
     }
 
+    private var arrJob: ArrayList<JobDto> = ArrayList()
+    override fun getJob(jobs: ArrayList<JobDto>) {
+        this.arrJob = jobs
+
+    }
+
     override fun getMyJob(guideDto: GuideDto) {
-        Log.d(TAG, guideDto.jobs + "dung")
-//        txt_write_jobP.text = guideDto.jobs
+        Log.d(TAG, "getMyJob...")
+        setJob(guideDto)
         pb_job.visibility = View.INVISIBLE
     }
 
+    private fun setJob(guideDto: GuideDto) {
+        sp_1.text = guideDto.jobs
+        sp_1.visibility = View.INVISIBLE
+        sp_2.visibility = View.INVISIBLE
+        sp_3.visibility = View.INVISIBLE
+        sp_4.visibility = View.INVISIBLE
+        layout_job_2.visibility = View.GONE
+
+        val arr: List<String> = guideDto.jobs!!.split(",")
+        Log.d(TAG, "dung$arr")
+        for (i in 0 until this.arrJob.size) {
+            for (j in 0 until arr.size) {
+                if (this.arrJob[i].id == arr[j].toInt()) {
+                    this.arrJob[i].isEmpty = true
+                    Log.d(TAG, j.toString() + " ${this.arrJob[i].id}  ${arr[j].toInt()}")
+                    if (j == 0) {
+                        sp_1.visibility = View.VISIBLE
+
+                        for (i in 0 until this.arrJob.size) {
+                            if (arr[j].toInt() == this.arrJob[i].id) {
+                                sp_1.text = this.arrJob[i].name
+                            }
+                        }
+                    }
+                    if (j == 1) {
+                        sp_2.visibility = View.VISIBLE
+                        for (i in 0 until this.arrJob.size) {
+                            if (arr[j].toInt() == this.arrJob[i].id) {
+                                sp_2.text = this.arrJob[i].name
+                            }
+                        }
+
+                    }
+                    if (j == 2) {
+                        sp_3.visibility = View.VISIBLE
+                        layout_job_2.visibility = View.VISIBLE
+                        for (i in 0 until this.arrJob.size) {
+                            if (arr[j].toInt() == this.arrJob[i].id) {
+                                sp_3.text = this.arrJob[i].name
+                            }
+                        }
+
+                    }
+                    if (j == 3) {
+//                        Log.d(TAG, this.arrJob[arr[j].toInt()].name)
+                        sp_4.visibility = View.VISIBLE
+                        layout_job_2.visibility = View.VISIBLE
+                        for (i in 0 until this.arrJob.size) {
+                            if (arr[j].toInt() == this.arrJob[i].id) {
+                                sp_4.text = this.arrJob[i].name
+                            }
+                        }
+
+                    }
+
+                }
+            }
+
+        }
+
+    }
 }

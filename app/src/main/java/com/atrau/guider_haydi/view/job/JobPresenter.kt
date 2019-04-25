@@ -7,13 +7,13 @@ class JobPresenter(val jobViewLestener: JobViewLestener) : OnJobModel {
 
     private val jobModel = JobModel(this)
 
-    fun getJob() {
-        jobModel.getJob()
+    fun putJob(hashMap: HashMap<String, ArrayList<Int>>, jobType: String) {
+        jobModel.putJob(hashMap, jobType)
+
     }
 
+    override fun putJob() {
+        jobViewLestener.putJob()
 
-    override fun getJob(jobs: ArrayList<JobDto>) {
-
-        jobViewLestener.getJob(jobs)
     }
 }

@@ -224,7 +224,7 @@ class ProfileModel(val onProfileListenner: OnProfileListenner) {
                         val nameEn = jsonObj.getString("name_en")
                         val icon = jsonObj.getString("icon")
 
-                        val jobDto = JobDto(id, name, nameEn, icon)
+                        val jobDto = JobDto(id, name, nameEn, icon, false)
                         jobs.add(jobDto)
                     }
 
@@ -234,25 +234,6 @@ class ProfileModel(val onProfileListenner: OnProfileListenner) {
         })
     }
 
-    fun putJob(hashMap: HashMap<String, ArrayList<Int>>, jobType: String) {
-        Log.d(TAG, "$hashMap  ...dung")
 
-
-        val call: Call<ResponseBody> = Client.getService()!!.putJob(App.getMyInsatnce().token, hashMap)
-        call.enqueue(object : Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-
-            }
-
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.code() == 200) {
-                    //Goi  update job
-
-                    getProfile(App.getMyInsatnce().token, jobType)
-                    Log.d(TAG, "ok....${response.body()!!.string()}")
-                }
-            }
-        })
-    }
 
 }

@@ -23,6 +23,9 @@ object Constant {
     val LANGUAGES = "LANGUAGES"
     val ALL = "ALL"
     val JOB = "JOB"
+    val KEY_LOGIN = "KEY_LOGIN"
+    val KEY_PHONE_NUMBER_LOGIN = "KEY_PHONE_NUMBER_LOGIN"
+    val KEY_PASSWORD_LOGIN = "KEY_PASSWORD_LOGIN"
 
 
     val URL_API = "http://api.haydi.vn:3001/"
@@ -37,6 +40,6 @@ object Constant {
     val FRINDS = "FRINDS"
     val CONVERSATIONS = "CONVERSATIONS"
 
-    val TEXT="TEXT"
-    val IMAGE="IMAGE"
+    val TEXT = "TEXT"
+    val IMAGE = "IMAGE"
 }
